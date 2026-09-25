@@ -280,15 +280,16 @@ function UniversalHeader({
 
         {/* Right CTA Actions */}
         <div className="hidden items-center gap-3 lg:flex">
-          {/* Prominent link to Fusion Edge VFX Showreel */}
-          <button
-            type="button"
-            onClick={onPlayVfxReel}
+          {/* Direct link to NRIM Visual Bible Chapters */}
+          <a
+            href="https://visualbible.nrim.org/"
+            target="_blank"
+            rel="noreferrer"
             className="flex items-center gap-2 rounded-full border border-[#1d63ff]/80 bg-[#1d63ff]/15 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#1d63ff] transition-all cursor-pointer shadow-lg shadow-blue-500/20"
           >
-            <Play size={13} className="fill-current text-[#1d63ff] group-hover:text-white" />
-            Watch VFX Reel
-          </button>
+            <ExternalLink size={13} className="text-[#1d63ff] group-hover:text-white" />
+            Visual Bible Chapters
+          </a>
 
           <a
             href="#contact"
@@ -868,15 +869,17 @@ function ComingSoonSection({
                 </div>
               </div>
 
-              {/* Clean Boxy Studio Action Buttons - NO round pill buttons or neon dropshadows */}
+              {/* Clean Boxy Studio Action Buttons - High Contrast */}
               <div className="mt-8 flex flex-wrap gap-4">
                 <a
                   href={genesisDetails.watchChaptersUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="rounded-[2px] bg-white text-black hover:bg-neutral-200 px-7 py-3.5 text-xs font-bold uppercase tracking-wider transition-colors flex items-center gap-2 cursor-pointer"
+                  style={{ color: "#000000" }}
+                  className="rounded-[2px] bg-white text-black hover:bg-neutral-200 px-7 py-3.5 text-xs font-black uppercase tracking-wider transition-colors flex items-center gap-2 cursor-pointer shadow-md"
                 >
-                  Watch Chapters Online <ExternalLink size={14} />
+                  <span style={{ color: "#000000" }}>Watch Chapters Online</span>
+                  <ExternalLink size={14} style={{ color: "#000000" }} />
                 </a>
 
                 <button
@@ -988,37 +991,30 @@ function StudioDivisionsSection() {
             >
               <div>
                 {/* Authentic Division Brand Logo Header */}
-                <div className="h-16 flex items-center justify-start mb-6">
+                <div className="h-16 sm:h-20 flex items-center justify-start mb-6">
                   {div.title === "American Film Academy" ? (
-                    <div className="h-14 px-3 py-1.5 rounded-lg bg-white flex items-center shadow-md">
-                      <img
-                        src={div.logo}
-                        alt={`${div.title} Logo`}
-                        className="h-full w-auto object-contain"
-                        width="200"
-                        height="56"
-                      />
-                    </div>
+                    <img
+                      src="/images/logos/afa-logo.png"
+                      alt={`${div.title} Logo`}
+                      className="h-16 sm:h-20 w-auto object-contain max-w-[220px] transition-transform duration-300 group-hover:scale-105"
+                      width="240"
+                      height="80"
+                    />
                   ) : div.title === "Prossiga Media" ? (
-                    <div className="flex items-center gap-3">
-                      <img
-                        src={div.logo}
-                        alt={`${div.title} Logo`}
-                        className="h-14 w-auto object-contain drop-shadow-[0_0_15px_rgba(29,99,255,0.3)] transition-transform duration-300 group-hover:scale-105"
-                        width="80"
-                        height="56"
-                      />
-                      <span className="font-display text-2xl uppercase tracking-wider text-foreground">
-                        Prossiga Media
-                      </span>
-                    </div>
+                    <img
+                      src={div.logo}
+                      alt={`${div.title} Logo`}
+                      className="h-16 sm:h-20 w-auto object-contain max-w-[140px] drop-shadow-[0_0_15px_rgba(29,99,255,0.3)] transition-transform duration-300 group-hover:scale-105"
+                      width="140"
+                      height="80"
+                    />
                   ) : (
                     <img
                       src={div.logo}
                       alt={`${div.title} Logo`}
-                      className="h-14 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
-                      width="200"
-                      height="56"
+                      className="h-16 sm:h-20 w-auto object-contain max-w-[220px] transition-transform duration-300 group-hover:scale-105"
+                      width="240"
+                      height="80"
                     />
                   )}
                 </div>
