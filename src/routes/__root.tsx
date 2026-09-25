@@ -78,7 +78,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Fusion Edge Media" },
-      { name: "description", content: "International film production connecting filmmakers, stories and audiences across borders." },
+      {
+        name: "description",
+        content:
+          "International film production connecting filmmakers, stories and audiences across borders.",
+      },
       { name: "author", content: "Fusion Edge Media" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
