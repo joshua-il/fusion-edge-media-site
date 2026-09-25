@@ -6,7 +6,7 @@ export interface FilmWork {
   id: string;
   title: string;
   year: string;
-  category: "blockbuster" | "international" | "afa" | "series";
+  category: "blockbuster" | "international" | "afa" | "series" | "genesis";
   categoryLabel: string;
   tagline: string;
   credits: string;
@@ -16,6 +16,7 @@ export interface FilmWork {
   alt: string;
   description: string;
   videoId?: string;
+  startSeconds?: number;
   link?: string;
 }
 
@@ -201,6 +202,24 @@ export const officialVideos: VideoItem[] = [
 ];
 
 export const allFilmWorks: FilmWork[] = [
+  {
+    id: "genesis",
+    title: "The Book of Genesis",
+    year: "2026",
+    category: "genesis",
+    categoryLabel: "NRIM Visual Bible Project",
+    tagline: "The Book of Genesis - Fully AI 90-Minute Feature Film - In Production",
+    credits: "Nations Reach International Missions · Fusion Edge Media",
+    director: "Jack A Rajasekar & NRIM",
+    producers: "Fusion Edge Media AI Cinematic Studio",
+    image: "/images/posters/genesis-poster.jpg",
+    alt: "The Book of Genesis Movie Poster",
+    description:
+      "A visionary chapter-based visual Bible initiative developed for Nations Reach International Missions (NRIM) and currently in production as a groundbreaking 90-minute fully AI-generated cinematic feature film.",
+    videoId: "jk47kD9vq1c",
+    startSeconds: 2279,
+    link: "https://visualbible.nrim.org/",
+  },
   {
     id: "enthiran",
     title: "Enthiran / Robot",
@@ -539,6 +558,76 @@ export const genesisDetails = {
     { value: "NRIM", label: "Mission Partner" },
   ],
 };
+
+export interface UpcomingTitle {
+  id: string;
+  title: string;
+  posterImage: string;
+  tagline?: string;
+  videoId?: string;
+  startSeconds?: number;
+  externalUrl?: string;
+}
+
+export const upcomingTitles: UpcomingTitle[] = [
+  {
+    id: "genesis",
+    title: "THE BOOK OF GENESIS",
+    posterImage: "/images/posters/genesis-poster.jpg",
+    tagline: "NRIM Visual Bible · 90-Min AI Feature Film",
+    videoId: "jk47kD9vq1c",
+    startSeconds: 2279,
+    externalUrl: "https://visualbible.nrim.org/",
+  },
+  {
+    id: "silkworm",
+    title: "SILKWORM",
+    posterImage: "/images/posters/silkworm.png",
+    tagline: "Generations Bound by Secret Threads",
+  },
+  {
+    id: "strike",
+    title: "STRIKE",
+    posterImage: "/images/posters/strike.png",
+    tagline: "When Silence is no Longer an Option",
+  },
+  {
+    id: "corner-mart",
+    title: "CORNER MART",
+    posterImage: "/images/posters/corner-mart.png",
+    tagline: "Tensions Rise in the Heart of the City",
+  },
+  {
+    id: "el-restaurante",
+    title: "EL RESTAURANTE",
+    posterImage: "/images/posters/el-restaurante.png",
+    tagline: "Secrets Behind the Kitchen Doors",
+  },
+  {
+    id: "the-norwegian",
+    title: "THE NORWEGIAN",
+    posterImage: "/images/posters/the-norwegian.png",
+    tagline: "An International Mystery across Borders",
+  },
+  {
+    id: "the-farm",
+    title: "THE FARM",
+    posterImage: "/images/posters/the-farm.jpg",
+    tagline: "Inspired by a True Story",
+  },
+  {
+    id: "escape",
+    title: "ESCAPE",
+    posterImage: "/images/posters/escape.jpg",
+    tagline: "In the Darkest Corner, the Human Spirit Fights",
+  },
+  {
+    id: "clueless-kevin",
+    title: "CLUELESS KEVIN",
+    posterImage: "/images/posters/clueless-kevin.jpg",
+    tagline: "A Fast-Paced Comedy of Errors",
+  },
+];
 
 export const inReleaseFilms = allFilmWorks.filter(
   (film) => film.category === "blockbuster" || film.category === "series" || film.category === "international"

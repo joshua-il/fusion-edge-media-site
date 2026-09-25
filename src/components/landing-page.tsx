@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import {
   ArrowLeft,
   ArrowRight,
+  ChevronLeft,
+  ChevronRight,
   ExternalLink,
   Film,
   Menu,
@@ -21,6 +23,8 @@ import {
   type HeroSlide,
   inReleaseFilms,
   studioDivisions,
+  upcomingTitles,
+  type UpcomingTitle,
 } from "@/data/site-content";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -207,7 +211,7 @@ function PosterInspectorModal({
                 type="button"
                 onClick={() => {
                   onClose();
-                  onPlayVideo(film.videoId!, film.title, "Official Reel");
+                  onPlayVideo(film.videoId!, film.title, "Official Reel", film.startSeconds);
                 }}
                 className="flex-1 rounded-full bg-[#1d63ff] hover:bg-[#1550d4] text-white px-6 py-3 text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer"
               >
@@ -728,124 +732,146 @@ function ComingSoonSection({
   onPlayVideo: (id: string, title: string, category?: string, startSeconds?: number) => void;
   onInspectFilm: (filmId: string) => void;
 }) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  const updateProgress = () => {
+    if (!scrollRef.current) return;
+    const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+    const maxScroll = scrollWidth - clientWidth;
+    if (maxScroll > 0) {
+      setScrollProgress(Math.min(1, Math.max(0, scrollLeft / maxScroll)));
+    }
+  };
+
+  const handleScrollPrev = () => {
+    if (!scrollRef.current) return;
+    scrollRef.current.scrollBy({ left: -340, behavior: "smooth" });
+  };
+
+  const handleScrollNext = () => {
+    if (!scrollRef.current) return;
+    scrollRef.current.scrollBy({ left: 340, behavior: "smooth" });
+  };
+
+  const handleTitleClick = (movie: UpcomingTitle) => {
+    if (movie.id === "genesis") {
+      onPlayVideo(
+        movie.videoId ?? "jk47kD9vq1c",
+        "The Book of Genesis",
+        "In Production",
+        movie.startSeconds ?? 2279
+      );
+    } else {
+      onInspectFilm(movie.id);
+    }
+  };
+
   return (
-    <section id="coming-soon" aria-label="Coming Soon" className="section-pad border-b border-border/40">
+    <section
+      id="coming-soon"
+      aria-label="Coming Soon"
+      className="py-12 md:py-16 bg-[#000000] border-b border-white/10 relative overflow-hidden"
+    >
       <div className="page-gutter">
-        {/* Universal Pictures Screenshot 3 Style Layout */}
-        <div className="grid gap-12 lg:grid-cols-[380px_1fr] items-start">
-          {/* Left Column: Big Bold Title & Overview */}
-          <div>
-            <p className="eyebrow text-[#1d63ff]">Production Pipeline</p>
-            <h2 className="font-display text-5xl sm:text-7xl md:text-8xl uppercase text-foreground leading-[0.88]">
-              Coming
-              <br />
-              Soon
-            </h2>
-            <p className="mt-6 text-sm sm:text-base leading-relaxed text-muted-foreground">
-              Fusion Edge Media is pioneering the next era of cinematic storytelling. From
-              groundbreaking generative AI features to international co-productions, explore what is
-              next on our horizon.
-            </p>
-            <a
-              href={genesisDetails.watchChaptersUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="mt-6 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-[#1d63ff] hover:text-white transition-colors"
-            >
-              Explore NRIM Chapters Online <ArrowRight size={14} />
-            </a>
+        {/* Top Control Bar: Progress Track Line & Nav Buttons */}
+        <div className="flex items-center justify-between gap-6 mb-6 md:mb-8">
+          {/* Progress bar line matching the uploaded Universal Pictures style */}
+          <div className="relative h-[2px] flex-1 bg-white/15 overflow-hidden">
+            <div
+              className="absolute top-0 bottom-0 bg-[#0055ff] transition-all duration-300 ease-out"
+              style={{
+                width: "28%",
+                left: `${scrollProgress * 72}%`,
+              }}
+            />
           </div>
 
-          {/* Right Column: Centerpiece Feature - NRIM Visual Bible Project: The Book of Genesis */}
-          <div className="rounded-2xl border border-white/15 bg-card/60 p-6 md:p-8 backdrop-blur-xl relative overflow-hidden">
-            {/* Background art glow */}
-            <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-[#1d63ff]/20 blur-3xl pointer-events-none" />
+          {/* Minimalist Square Navigation Arrows (< and >) */}
+          <div className="flex items-center gap-1 shrink-0">
+            <button
+              type="button"
+              onClick={handleScrollPrev}
+              aria-label="Previous upcoming movie"
+              className="w-9 h-9 sm:w-10 sm:h-10 border border-white/20 bg-black/60 hover:bg-white/10 hover:border-white/50 text-white flex items-center justify-center transition-colors cursor-pointer"
+            >
+              <ChevronLeft size={18} />
+            </button>
+            <button
+              type="button"
+              onClick={handleScrollNext}
+              aria-label="Next upcoming movie"
+              className="w-9 h-9 sm:w-10 sm:h-10 border border-white/20 bg-black/60 hover:bg-white/10 hover:border-white/50 text-white flex items-center justify-center transition-colors cursor-pointer"
+            >
+              <ChevronRight size={18} />
+            </button>
+          </div>
+        </div>
 
-            <div className="flex flex-col lg:flex-row gap-8 items-center">
-              {/* Poster Art - High-Impact Genesis Portrait Poster */}
-              <div className="relative aspect-[2/3] w-full max-w-[280px] sm:max-w-[320px] shrink-0 overflow-hidden rounded-xl border border-white/20 bg-black shadow-2xl group">
-                <img
-                  src={genesisDetails.posterImage}
-                  alt="The Book of Genesis Poster"
-                  loading="lazy"
-                  className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
-                <span className="absolute bottom-3 left-3 rounded-full bg-[#1d63ff] px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white">
-                  In Production
-                </span>
-              </div>
+        {/* Mobile Header: Visible on screens < lg */}
+        <div className="lg:hidden mb-6 flex flex-col items-start">
+          <h2 className="font-display text-4xl sm:text-5xl font-black uppercase text-white leading-[0.92] tracking-tight">
+            Coming
+            <br />
+            Soon
+          </h2>
+          <a
+            href="#in-release"
+            className="mt-3 inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-white/80 hover:text-white transition-colors"
+          >
+            SEE ALL UPCOMING MOVIES <ChevronRight size={13} />
+          </a>
+        </div>
 
-              {/* Information & Actions */}
-              <div className="flex-1 flex flex-col justify-between">
-                <div>
-                  <div className="flex items-center gap-4">
-                    <img
-                      src="/images/logos/nrim-logo-white.png"
-                      alt="NRIM Logo"
-                      className="h-10 w-auto object-contain opacity-90"
-                      width="160"
-                      height="40"
-                    />
-                    <span className="rounded-full bg-white/10 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-[#1d63ff] border border-white/10">
-                      Visual Bible Project
-                    </span>
-                  </div>
-
-                  <h3 className="mt-4 font-display text-3xl sm:text-5xl uppercase tracking-tight text-foreground">
-                    {genesisDetails.title}
-                  </h3>
-
-                  <p className="mt-2 text-base sm:text-lg font-bold uppercase tracking-wider text-[#1d63ff]">
-                    {genesisDetails.headline}
-                  </p>
-
-                  <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                    {genesisDetails.description}
-                  </p>
-
-                  {/* Highlights Grid */}
-                  <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3 border-y border-white/10 py-4">
-                    {genesisDetails.stats.map((stat) => (
-                      <div key={stat.label}>
-                        <p className="font-display text-2xl uppercase text-foreground">{stat.value}</p>
-                        <p className="text-[11px] text-muted-foreground uppercase tracking-wider">
-                          {stat.label}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Pill Action Buttons (Exact User Request) */}
-                <div className="mt-6 flex flex-wrap gap-4">
-                  <a
-                    href={genesisDetails.watchChaptersUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="rounded-full bg-[#1d63ff] hover:bg-[#1550d4] text-white px-8 py-3.5 text-xs sm:text-sm font-bold uppercase tracking-wider transition-all shadow-lg shadow-blue-500/30 flex items-center gap-2 cursor-pointer"
-                  >
-                    Watch Chapters <ExternalLink size={15} />
-                  </a>
-
-                  <button
-                    type="button"
-                    onClick={() =>
-                      onPlayVideo(
-                        genesisDetails.aiShowreelId,
-                        "The Book of Genesis",
-                        "In Production",
-                        genesisDetails.startSeconds
-                      )
-                    }
-                    className="rounded-full border border-white/40 bg-black/40 hover:border-white hover:bg-black/60 text-white backdrop-blur-md px-8 py-3.5 text-xs sm:text-sm font-bold uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer"
-                  >
-                    <Play size={14} className="fill-current text-[#1d63ff]" />
-                    Watch Teaser
-                  </button>
-                </div>
-              </div>
+        {/* Carousel Viewport with Desktop Left Gradient Overlay */}
+        <div className="relative">
+          {/* Desktop Left Overlay: Bold Coming Soon title over smooth black theatrical gradient */}
+          <div className="hidden lg:flex absolute left-0 top-0 bottom-0 z-20 w-[340px] xl:w-[400px] pointer-events-none bg-gradient-to-r from-black via-black/90 via-black/60 to-transparent flex-col justify-center pl-6 xl:pl-10 pr-6">
+            <div className="pointer-events-auto">
+              <h2 className="font-display text-5xl xl:text-7xl font-black uppercase text-white leading-[0.88] tracking-tight">
+                Coming
+                <br />
+                Soon
+              </h2>
+              <a
+                href="#in-release"
+                className="mt-6 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-white/80 hover:text-white transition-colors cursor-pointer"
+              >
+                SEE ALL UPCOMING MOVIES <ChevronRight size={14} />
+              </a>
             </div>
+          </div>
+
+          {/* Horizontal Poster Cards Track */}
+          <div
+            ref={scrollRef}
+            onScroll={updateProgress}
+            className="flex gap-5 sm:gap-6 overflow-x-auto pb-4 pt-1 hide-scrollbar scroll-smooth snap-x snap-mandatory lg:pl-[340px] xl:pl-[400px]"
+          >
+            {upcomingTitles.map((movie) => (
+              <div
+                key={movie.id}
+                onClick={() => handleTitleClick(movie)}
+                className="group flex flex-col w-[240px] sm:w-[270px] md:w-[290px] lg:w-[320px] shrink-0 cursor-pointer snap-start"
+              >
+                {/* 2:3 Vertical Theatrical Poster Art */}
+                <div className="relative aspect-[2/3] w-full overflow-hidden rounded-[4px] border border-white/10 bg-black shadow-xl transition-transform duration-300 ease-out group-hover:scale-[1.02]">
+                  <img
+                    src={movie.posterImage}
+                    alt={`${movie.title} Movie Poster`}
+                    loading="lazy"
+                    className="h-full w-full object-cover object-center"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-40 group-hover:opacity-10 transition-opacity" />
+                </div>
+
+                {/* Minimalist Studio Title with Arrow */}
+                <div className="mt-3.5 flex items-center gap-1.5 text-sm sm:text-base font-bold uppercase tracking-wider text-white group-hover:text-white/80 transition-colors">
+                  <span className="truncate">{movie.title}</span>
+                  <ArrowRight size={15} className="shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
