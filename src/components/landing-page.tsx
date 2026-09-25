@@ -23,8 +23,6 @@ import {
   type HeroSlide,
   inReleaseFilms,
   studioDivisions,
-  upcomingTitles,
-  type UpcomingTitle,
 } from "@/data/site-content";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -732,146 +730,172 @@ function ComingSoonSection({
   onPlayVideo: (id: string, title: string, category?: string, startSeconds?: number) => void;
   onInspectFilm: (filmId: string) => void;
 }) {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [scrollProgress, setScrollProgress] = useState(0);
-
-  const updateProgress = () => {
-    if (!scrollRef.current) return;
-    const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-    const maxScroll = scrollWidth - clientWidth;
-    if (maxScroll > 0) {
-      setScrollProgress(Math.min(1, Math.max(0, scrollLeft / maxScroll)));
-    }
-  };
-
-  const handleScrollPrev = () => {
-    if (!scrollRef.current) return;
-    scrollRef.current.scrollBy({ left: -340, behavior: "smooth" });
-  };
-
-  const handleScrollNext = () => {
-    if (!scrollRef.current) return;
-    scrollRef.current.scrollBy({ left: 340, behavior: "smooth" });
-  };
-
-  const handleTitleClick = (movie: UpcomingTitle) => {
-    if (movie.id === "genesis") {
-      onPlayVideo(
-        movie.videoId ?? "jk47kD9vq1c",
-        "The Book of Genesis",
-        "In Production",
-        movie.startSeconds ?? 2279
-      );
-    } else {
-      onInspectFilm(movie.id);
-    }
-  };
-
   return (
     <section
       id="coming-soon"
       aria-label="Coming Soon"
-      className="py-12 md:py-16 bg-[#000000] border-b border-white/10 relative overflow-hidden"
+      className="py-14 md:py-20 bg-[#000000] border-b border-white/10 relative overflow-hidden"
     >
-      <div className="page-gutter">
-        {/* Top Control Bar: Progress Track Line & Nav Buttons */}
-        <div className="flex items-center justify-between gap-6 mb-6 md:mb-8">
-          {/* Progress bar line matching the uploaded Universal Pictures style */}
+      {/* Subtle Studio Backdrop with Deep Black Gradient Fade */}
+      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden opacity-20">
+        <img
+          src={genesisHero}
+          alt=""
+          className="h-full w-full object-cover object-center filter grayscale"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/90 to-black/75" />
+      </div>
+
+      <div className="page-gutter relative z-10">
+        {/* Top Progress Track Bar Matching Universal Style */}
+        <div className="flex items-center justify-between gap-6 mb-8 md:mb-12">
           <div className="relative h-[2px] flex-1 bg-white/15 overflow-hidden">
-            <div
-              className="absolute top-0 bottom-0 bg-[#0055ff] transition-all duration-300 ease-out"
-              style={{
-                width: "28%",
-                left: `${scrollProgress * 72}%`,
-              }}
-            />
+            <div className="absolute top-0 bottom-0 left-0 w-32 sm:w-48 bg-[#0055ff]" />
           </div>
-
-          {/* Minimalist Square Navigation Arrows (< and >) */}
-          <div className="flex items-center gap-1 shrink-0">
-            <button
-              type="button"
-              onClick={handleScrollPrev}
-              aria-label="Previous upcoming movie"
-              className="w-9 h-9 sm:w-10 sm:h-10 border border-white/20 bg-black/60 hover:bg-white/10 hover:border-white/50 text-white flex items-center justify-center transition-colors cursor-pointer"
-            >
-              <ChevronLeft size={18} />
-            </button>
-            <button
-              type="button"
-              onClick={handleScrollNext}
-              aria-label="Next upcoming movie"
-              className="w-9 h-9 sm:w-10 sm:h-10 border border-white/20 bg-black/60 hover:bg-white/10 hover:border-white/50 text-white flex items-center justify-center transition-colors cursor-pointer"
-            >
-              <ChevronRight size={18} />
-            </button>
-          </div>
+          <span className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#1d63ff] shrink-0">
+            In Production · 2026
+          </span>
         </div>
 
-        {/* Mobile Header: Visible on screens < lg */}
-        <div className="lg:hidden mb-6 flex flex-col items-start">
-          <h2 className="font-display text-4xl sm:text-5xl font-black uppercase text-white leading-[0.92] tracking-tight">
-            Coming
-            <br />
-            Soon
-          </h2>
-          <a
-            href="#in-release"
-            className="mt-3 inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-white/80 hover:text-white transition-colors"
-          >
-            SEE ALL UPCOMING MOVIES <ChevronRight size={13} />
-          </a>
-        </div>
+        {/* Studio Showcase Layout: Left Title & Link, Right Centerpiece Poster & Spec */}
+        <div className="grid gap-10 lg:grid-cols-[340px_1fr] xl:grid-cols-[380px_1fr] items-start">
+          {/* Left Column: Huge 2-Line Coming Soon Title & Partnership Note */}
+          <div className="flex flex-col items-start">
+            <h2 className="font-display text-5xl sm:text-7xl lg:text-8xl font-black uppercase text-white leading-[0.88] tracking-tight">
+              Coming
+              <br />
+              Soon
+            </h2>
 
-        {/* Carousel Viewport with Desktop Left Gradient Overlay */}
-        <div className="relative">
-          {/* Desktop Left Overlay: Bold Coming Soon title over smooth black theatrical gradient */}
-          <div className="hidden lg:flex absolute left-0 top-0 bottom-0 z-20 w-[340px] xl:w-[400px] pointer-events-none bg-gradient-to-r from-black via-black/90 via-black/60 to-transparent flex-col justify-center pl-6 xl:pl-10 pr-6">
-            <div className="pointer-events-auto">
-              <h2 className="font-display text-5xl xl:text-7xl font-black uppercase text-white leading-[0.88] tracking-tight">
-                Coming
-                <br />
-                Soon
-              </h2>
-              <a
-                href="#in-release"
-                className="mt-6 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-white/80 hover:text-white transition-colors cursor-pointer"
-              >
-                SEE ALL UPCOMING MOVIES <ChevronRight size={14} />
-              </a>
-            </div>
+            <a
+              href={genesisDetails.watchChaptersUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-6 inline-flex items-center gap-1.5 text-xs sm:text-[13px] font-bold uppercase tracking-wider text-white/80 hover:text-white transition-colors cursor-pointer"
+            >
+              EXPLORE NRIM CHAPTERS ONLINE <ChevronRight size={14} />
+            </a>
+
+            <p className="mt-6 text-sm leading-relaxed text-neutral-400 max-w-sm">
+              Nations Reach International Missions (NRIM) in strategic co-production with Fusion Edge
+              Media is developing the world&apos;s first fully AI-generated 90-minute visual Bible feature
+              film.
+            </p>
           </div>
 
-          {/* Horizontal Poster Cards Track */}
-          <div
-            ref={scrollRef}
-            onScroll={updateProgress}
-            className="flex gap-5 sm:gap-6 overflow-x-auto pb-4 pt-1 hide-scrollbar scroll-smooth snap-x snap-mandatory lg:pl-[340px] xl:pl-[400px]"
-          >
-            {upcomingTitles.map((movie) => (
+          {/* Right Column: Genesis Centerpiece Feature */}
+          <div className="flex flex-col md:flex-row gap-8 lg:gap-10 items-start">
+            {/* Theatrical Portrait Poster (2:3 Aspect Ratio) with Universal-style Title below */}
+            <div className="w-full sm:w-[280px] md:w-[320px] shrink-0 group">
               <div
-                key={movie.id}
-                onClick={() => handleTitleClick(movie)}
-                className="group flex flex-col w-[240px] sm:w-[270px] md:w-[290px] lg:w-[320px] shrink-0 cursor-pointer snap-start"
+                onClick={() =>
+                  onPlayVideo(
+                    genesisDetails.aiShowreelId,
+                    "The Book of Genesis",
+                    "In Production",
+                    genesisDetails.startSeconds
+                  )
+                }
+                className="relative aspect-[2/3] w-full overflow-hidden rounded-[4px] border border-white/15 bg-black shadow-2xl cursor-pointer transition-transform duration-300 ease-out group-hover:scale-[1.02]"
               >
-                {/* 2:3 Vertical Theatrical Poster Art */}
-                <div className="relative aspect-[2/3] w-full overflow-hidden rounded-[4px] border border-white/10 bg-black shadow-xl transition-transform duration-300 ease-out group-hover:scale-[1.02]">
-                  <img
-                    src={movie.posterImage}
-                    alt={`${movie.title} Movie Poster`}
-                    loading="lazy"
-                    className="h-full w-full object-cover object-center"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-40 group-hover:opacity-10 transition-opacity" />
+                <img
+                  src={genesisDetails.posterImage}
+                  alt="The Book of Genesis Movie Poster"
+                  loading="lazy"
+                  className="h-full w-full object-cover object-center"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-40 group-hover:opacity-10 transition-opacity" />
+              </div>
+
+              {/* Exact Universal-style bold title + arrow below poster */}
+              <button
+                type="button"
+                onClick={() =>
+                  onPlayVideo(
+                    genesisDetails.aiShowreelId,
+                    "The Book of Genesis",
+                    "In Production",
+                    genesisDetails.startSeconds
+                  )
+                }
+                className="mt-3.5 flex items-center gap-1.5 text-base sm:text-lg font-bold uppercase tracking-wider text-white hover:text-white/80 transition-colors cursor-pointer text-left"
+              >
+                <span>THE BOOK OF GENESIS</span>
+                <ArrowRight
+                  size={16}
+                  className="shrink-0 transition-transform duration-300 group-hover:translate-x-1"
+                />
+              </button>
+            </div>
+
+            {/* Feature Description & Clean Theatrical Actions */}
+            <div className="flex-1 flex flex-col justify-between self-stretch">
+              <div>
+                <div className="flex items-center gap-3">
+                  <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#1d63ff]">
+                    NRIM Visual Bible Project
+                  </span>
+                  <span className="h-1 w-1 rounded-full bg-white/30" />
+                  <span className="text-xs uppercase tracking-wider text-neutral-400">
+                    Feature Film
+                  </span>
                 </div>
 
-                {/* Minimalist Studio Title with Arrow */}
-                <div className="mt-3.5 flex items-center gap-1.5 text-sm sm:text-base font-bold uppercase tracking-wider text-white group-hover:text-white/80 transition-colors">
-                  <span className="truncate">{movie.title}</span>
-                  <ArrowRight size={15} className="shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
+                <h3 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl uppercase tracking-tight text-white leading-none">
+                  {genesisDetails.title}
+                </h3>
+
+                <p className="mt-2 text-sm sm:text-base font-bold uppercase tracking-wider text-neutral-300">
+                  {genesisDetails.headline}
+                </p>
+
+                <p className="mt-4 text-sm sm:text-base leading-relaxed text-neutral-400">
+                  {genesisDetails.description}
+                </p>
+
+                {/* Clean Studio Spec Grid - Sharp dividers, NO neon badges */}
+                <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-4 border-y border-white/10 py-5">
+                  {genesisDetails.stats.map((stat) => (
+                    <div key={stat.label}>
+                      <p className="font-display text-2xl sm:text-3xl uppercase text-white font-bold">
+                        {stat.value}
+                      </p>
+                      <p className="text-[11px] text-neutral-500 uppercase tracking-wider mt-0.5">
+                        {stat.label}
+                      </p>
+                    </div>
+                  ))}
                 </div>
               </div>
-            ))}
+
+              {/* Clean Boxy Studio Action Buttons - NO round pill buttons or neon dropshadows */}
+              <div className="mt-8 flex flex-wrap gap-4">
+                <a
+                  href={genesisDetails.watchChaptersUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="rounded-[2px] bg-white text-black hover:bg-neutral-200 px-7 py-3.5 text-xs font-bold uppercase tracking-wider transition-colors flex items-center gap-2 cursor-pointer"
+                >
+                  Watch Chapters Online <ExternalLink size={14} />
+                </a>
+
+                <button
+                  type="button"
+                  onClick={() =>
+                    onPlayVideo(
+                      genesisDetails.aiShowreelId,
+                      "The Book of Genesis",
+                      "In Production",
+                      genesisDetails.startSeconds
+                    )
+                  }
+                  className="rounded-[2px] border border-white/30 bg-black/60 hover:bg-white/10 text-white px-7 py-3.5 text-xs font-bold uppercase tracking-wider transition-colors flex items-center gap-2 cursor-pointer"
+                >
+                  <Play size={14} className="fill-current text-[#1d63ff]" />
+                  Watch Teaser
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
