@@ -67,7 +67,7 @@ export const featuredHeroSlides: HeroSlide[] = [
     eyebrow: "2027 RELEASE",
     title: "YAHWEH",
     subtitle: "The God who reveals His power",
-    titleImage: "/images/titles/yahweh-title.png",
+    titleImage: "/images/titles/yahweh-title-v2.png",
     tagline: "NRIM Visual Bible Project · 2027 Theatrical Feature Film",
     description:
       "Nations Reach International Missions (NRIM) and Fusion Edge Media present The Book of Exodus. An epic cinematic visual Bible feature film produced with an advanced generative AI cinema pipeline.",
@@ -626,7 +626,7 @@ export const exodusPosters: ExodusPoster[] = [
 export const exodusDetails = {
   title: "YAHWEH",
   subtitle: "The God who reveals His power",
-  titleImage: "/images/titles/yahweh-title.png",
+  titleImage: "/images/titles/yahweh-title-v2.png",
   headline: "An NRIM Production · 2027 Theatrical Feature Film",
   client: "Nations Reach International Missions (NRIM)",
   production: "Fusion Edge Media",
