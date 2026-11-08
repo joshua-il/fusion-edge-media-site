@@ -30,13 +30,19 @@ import {
 } from "@/data/site-content";
 import { cn } from "@/lib/utils";
 
-const navItems = [
+interface NavItem {
+  label: string;
+  href: string;
+  external?: boolean;
+}
+
+const navItems: NavItem[] = [
   { label: "Coming Soon", href: "#coming-soon" },
   { label: "In Release", href: "#in-release" },
   { label: "AFA Slate", href: "#afa-slate" },
   { label: "Divisions", href: "#divisions" },
   { label: "About", href: "#about" },
-  { label: "Contact", href: "#contact" },
+  { label: "Visual Bible", href: "https://visualbible.nrim.org/", external: true },
 ];
 
 interface VideoModalState {
@@ -268,72 +274,91 @@ function UniversalHeader({ onPlayVfxReel }: { onPlayVfxReel: () => void }) {
         </a>
 
         {/* Hollywood Studio Navigation */}
-        <nav className="hidden items-center gap-6 xl:gap-8 lg:flex" aria-label="Main navigation">
+        <nav className="hidden items-center gap-5 xl:gap-8 lg:flex" aria-label="Main navigation">
           {navItems.map((item) => (
-            <a key={item.label} href={item.href} className="nav-link">
-              {item.label}
+            <a
+              key={item.label}
+              href={item.href}
+              target={item.external ? "_blank" : undefined}
+              rel={item.external ? "noreferrer" : undefined}
+              className="nav-link inline-flex items-center gap-1.5 whitespace-nowrap"
+            >
+              <span>{item.label}</span>
+              {item.external && <ExternalLink size={11} className="text-[#8E8E93] opacity-80" />}
             </a>
           ))}
         </nav>
 
-        {/* Right CTA Actions - 50px Fully Rounded Pills */}
-        <div className="hidden items-center gap-3 lg:flex">
-          <a
-            href="https://visualbible.nrim.org/"
-            target="_blank"
-            rel="noreferrer"
-            className="btn-pill-crimson flex items-center gap-2 px-5 py-2.5 text-xs font-bold uppercase tracking-wider cursor-pointer shadow-lg"
-          >
-            <ExternalLink size={13} />
-            Visual Bible
-          </a>
-
+        {/* Right CTA Action - 50px Fully Rounded Crimson Pill */}
+        <div className="hidden items-center gap-3 lg:flex shrink-0">
           <a
             href="#contact"
-            className="btn-pill-outline px-5 py-2.5 text-xs font-bold uppercase tracking-wider"
+            className="btn-pill-crimson whitespace-nowrap px-6 py-2.5 text-xs font-bold uppercase tracking-wider shadow-lg hover:scale-105 active:scale-95 transition-all"
           >
-            Contact
+            Contact Studio
           </a>
         </div>
 
-        {/* Mobile Hamburger */}
-        <button
-          type="button"
-          aria-label={open ? "Close menu" : "Open menu"}
-          onClick={() => setOpen((val) => !val)}
-          className="relative z-50 rounded-full p-2.5 text-[#F5F5F7] bg-white/5 hover:bg-white/10 lg:hidden cursor-pointer"
-        >
-          {open ? <X size={22} /> : <Menu size={22} />}
-        </button>
+        {/* Mobile Actions: Fast Contact Pill & Hamburger */}
+        <div className="flex items-center gap-2.5 lg:hidden">
+          <a
+            href="#contact"
+            className="btn-pill-crimson whitespace-nowrap px-4 py-2 text-[11px] font-bold uppercase tracking-wider shadow-md"
+          >
+            Contact
+          </a>
+          <button
+            type="button"
+            aria-label={open ? "Close menu" : "Open menu"}
+            onClick={() => setOpen((val) => !val)}
+            className="relative z-50 rounded-full p-2.5 text-[#F5F5F7] bg-white/5 hover:bg-white/10 cursor-pointer"
+          >
+            {open ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Drawer */}
       <div
         className={cn(
-          "fixed inset-0 z-40 flex flex-col justify-center bg-[#0A0A0A]/98 px-8 transition-all duration-300 lg:hidden",
+          "fixed inset-0 z-40 flex flex-col justify-center bg-[#0A0A0A]/98 px-6 sm:px-8 transition-all duration-300 lg:hidden",
           open ? "visible opacity-100" : "invisible opacity-0",
         )}
       >
         <p className="font-serif italic text-sm text-[#8E8E93] mb-4">
           Connecting Continents in Film Making
         </p>
-        <nav className="flex flex-col gap-2" aria-label="Mobile navigation">
+        <nav className="flex flex-col gap-1 sm:gap-2" aria-label="Mobile navigation">
           {navItems.map((item, index) => (
             <a
               key={item.label}
               href={item.href}
+              target={item.external ? "_blank" : undefined}
+              rel={item.external ? "noreferrer" : undefined}
               onClick={() => setOpen(false)}
-              className="border-b border-white/10 py-3 font-display text-2xl uppercase tracking-wider text-[#F5F5F7] hover:text-[#8B151A] transition-colors"
+              className="border-b border-white/10 py-3 font-display text-2xl uppercase tracking-wider text-[#F5F5F7] hover:text-[#8B151A] transition-colors flex items-center justify-between"
             >
-              <span className="mr-3 font-sans text-xs text-[#8B151A] font-bold">0{index + 1}</span>
-              {item.label}
+              <span>
+                <span className="mr-3 font-sans text-xs text-[#8B151A] font-bold">
+                  0{index + 1}
+                </span>
+                {item.label}
+              </span>
+              {item.external && <ExternalLink size={16} className="text-[#8E8E93]" />}
             </a>
           ))}
         </nav>
         <div className="mt-8 flex flex-col gap-3">
+          <a
+            href="#contact"
+            onClick={() => setOpen(false)}
+            className="btn-pill-crimson py-3.5 text-xs font-bold uppercase tracking-wider text-center"
+          >
+            Contact Studio
+          </a>
           <button
             type="button"
-            className="btn-pill-crimson py-3.5 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer"
+            className="btn-pill-outline py-3.5 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer"
             onClick={() => {
               setOpen(false);
               onPlayVfxReel();
@@ -341,13 +366,6 @@ function UniversalHeader({ onPlayVfxReel }: { onPlayVfxReel: () => void }) {
           >
             <Play size={14} className="fill-current" /> Watch VFX Reel
           </button>
-          <a
-            href="#contact"
-            onClick={() => setOpen(false)}
-            className="btn-pill-outline py-3.5 text-xs font-bold uppercase tracking-wider text-center"
-          >
-            Contact Studio
-          </a>
         </div>
       </div>
     </header>
@@ -476,13 +494,13 @@ function UniversalHeroSlider({
         />
       </div>
 
-      {/* Audio Mute & Expand Controls (Top Right of Hero) */}
-      <div className="page-gutter relative z-20 flex justify-end gap-2 pt-2">
+      {/* Discreet Cinematic Video Controls (Floating Top-Right with generous header clearance) */}
+      <div className="absolute top-24 sm:top-28 right-4 sm:right-6 md:right-8 z-30 flex items-center gap-2">
         <button
           type="button"
           onClick={() => setIsMuted((val) => !val)}
           aria-label={isMuted ? "Unmute background audio" : "Mute background audio"}
-          className="w-9 h-9 rounded-full bg-black/60 hover:bg-black/90 text-white flex items-center justify-center transition cursor-pointer backdrop-blur-md shadow-lg border border-white/20"
+          className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black/70 hover:bg-black/90 text-white flex items-center justify-center transition cursor-pointer backdrop-blur-md shadow-xl border border-white/20 hover:border-white/40"
         >
           {isMuted ? <VolumeX size={15} /> : <Volume2 size={15} />}
         </button>
@@ -496,51 +514,52 @@ function UniversalHeroSlider({
               activeSlide.startSeconds,
             )
           }
-          className="rounded-full bg-black/60 hover:bg-black/90 px-4 py-2 text-xs font-bold uppercase tracking-wider text-white backdrop-blur-md transition cursor-pointer flex items-center gap-1.5 shadow-lg border border-white/20"
+          className="rounded-full bg-black/70 hover:bg-black/90 px-3.5 py-2 sm:px-4 sm:py-2.5 text-xs font-bold uppercase tracking-wider text-white backdrop-blur-md transition cursor-pointer flex items-center gap-2 shadow-xl border border-white/20 hover:border-white/40 whitespace-nowrap"
         >
-          <Play size={13} className="fill-current text-[#8B151A]" /> Expand Video
+          <Play size={13} className="fill-current text-[#8B151A]" />
+          <span>Expand Video</span>
         </button>
       </div>
 
       {/* Center Left Showcase Content with Smooth Cinematic Entrance */}
-      <div className="page-gutter relative z-20 my-auto py-10 md:py-14 max-w-3xl">
+      <div className="page-gutter relative z-20 my-auto py-8 sm:py-12 md:py-16 max-w-3xl">
         <div key={activeSlide.id} className="animate-hero-slide">
           {/* Hollywood Poster Highlight: Large, Bold, Prestigious letter-spaced Billing Highlight */}
           {activeSlide.id === "exodus" ? (
-            <div className="mb-4 sm:mb-6 flex items-center gap-3 sm:gap-4">
-              <span className="h-[2px] w-8 sm:w-16 bg-[#8B151A]" />
-              <span className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-[0.25em] sm:tracking-[0.32em] uppercase text-[#F5F5F7] font-bold drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)]">
+            <div className="mb-3 sm:mb-5 flex items-center gap-2.5 sm:gap-4">
+              <span className="h-[2px] w-6 sm:w-14 bg-[#8B151A]" />
+              <span className="font-display text-xl sm:text-3xl md:text-4xl lg:text-5xl tracking-[0.2em] sm:tracking-[0.3em] uppercase text-[#F5F5F7] font-bold drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)] whitespace-nowrap">
                 2027 RELEASE
               </span>
-              <span className="h-[2px] w-8 sm:w-16 bg-[#8B151A]" />
+              <span className="h-[2px] w-6 sm:w-14 bg-[#8B151A]" />
             </div>
           ) : (
-            <div className="mb-3 sm:mb-4 flex items-center gap-2.5 sm:gap-3">
-              <span className="h-[2px] w-6 sm:w-10 bg-[#8B151A]" />
-              <span className="font-display text-sm sm:text-base md:text-lg tracking-[0.22em] uppercase text-[#F5F5F7]/90 font-bold drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+            <div className="mb-2 sm:mb-4 flex items-center gap-2 sm:gap-3">
+              <span className="h-[2px] w-5 sm:w-8 bg-[#8B151A]" />
+              <span className="font-display text-xs sm:text-base md:text-lg tracking-[0.2em] uppercase text-[#F5F5F7]/90 font-bold drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
                 {activeSlide.eyebrow}
               </span>
             </div>
           )}
 
-          <h1 className="font-display text-5xl sm:text-7xl md:text-8xl lg:text-9xl uppercase tracking-tight text-[#F5F5F7] leading-[0.88] drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]">
+          <h1 className="font-display text-4xl sm:text-6xl md:text-8xl lg:text-9xl uppercase tracking-tight text-[#F5F5F7] leading-[0.88] drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]">
             {activeSlide.title}
           </h1>
 
-          <p className="mt-3.5 max-w-xl font-serif italic text-base sm:text-xl md:text-2xl text-[#F5F5F7]/95 leading-relaxed drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
+          <p className="mt-3 max-w-xl font-serif italic text-sm sm:text-lg md:text-2xl text-[#F5F5F7]/95 leading-relaxed drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
             {activeSlide.tagline}
           </p>
 
-          <p className="mt-2.5 max-w-lg text-xs sm:text-sm text-[#F5F5F7]/85 leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+          <p className="mt-2 max-w-lg text-xs sm:text-sm text-[#F5F5F7]/85 leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
             {activeSlide.description}
           </p>
 
           {/* Action Buttons: Fully Rounded 50px Pills */}
-          <div className="mt-8 flex flex-wrap items-center gap-4">
+          <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto">
             <button
               type="button"
               onClick={() => handlePrimaryAction(activeSlide)}
-              className="btn-pill-crimson px-8 py-3.5 text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center gap-2 cursor-pointer shadow-xl hover:scale-105 active:scale-95"
+              className="btn-pill-crimson px-7 py-3.5 text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-xl hover:scale-105 active:scale-95"
             >
               {activeSlide.primaryCta.action === "videoModal" && (
                 <Play size={14} className="fill-current" />
@@ -557,7 +576,7 @@ function UniversalHeroSlider({
               <button
                 type="button"
                 onClick={() => handleSecondaryAction(activeSlide)}
-                className="btn-pill-outline px-8 py-3.5 text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center gap-2 cursor-pointer shadow-lg hover:scale-105 active:scale-95"
+                className="btn-pill-outline px-7 py-3.5 text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-lg hover:scale-105 active:scale-95"
               >
                 {activeSlide.secondaryCta.action === "videoModal" && (
                   <Play size={14} className="fill-current text-[#8B151A]" />
@@ -570,30 +589,30 @@ function UniversalHeroSlider({
       </div>
 
       {/* Bottom Floating Pill Dock - EXACTLY MATCHING USER REFERENCE IMAGE 5 */}
-      <div className="page-gutter relative z-30 w-full pb-2 sm:pb-4">
-        <div className="mx-auto max-w-5xl rounded-full border border-white/20 bg-black/60 backdrop-blur-xl px-4 py-2 sm:px-6 sm:py-3 shadow-2xl flex items-center justify-between gap-3 sm:gap-5">
+      <div className="page-gutter relative z-30 w-full pb-3 sm:pb-4">
+        <div className="mx-auto max-w-5xl rounded-full border border-white/20 bg-black/70 backdrop-blur-xl px-3 py-2 sm:px-6 sm:py-3 shadow-2xl flex items-center justify-between gap-2 sm:gap-5">
           {/* Left Arrow Controls: Circular Prev & Next Buttons */}
-          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+          <div className="flex items-center gap-1 sm:gap-2 shrink-0">
             <button
               type="button"
               onClick={handlePrev}
               aria-label="Previous featured film"
-              className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/10 hover:bg-white/25 text-white flex items-center justify-center transition border border-white/10 cursor-pointer"
+              className="w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-white/10 hover:bg-white/25 text-white flex items-center justify-center transition border border-white/10 cursor-pointer"
             >
-              <ChevronLeft size={16} />
+              <ChevronLeft size={15} />
             </button>
             <button
               type="button"
               onClick={handleNext}
               aria-label="Next featured film"
-              className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/10 hover:bg-white/25 text-white flex items-center justify-center transition border border-white/10 cursor-pointer"
+              className="w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-white/10 hover:bg-white/25 text-white flex items-center justify-center transition border border-white/10 cursor-pointer"
             >
-              <ChevronRight size={16} />
+              <ChevronRight size={15} />
             </button>
           </div>
 
-          {/* Center Movie Tabs with Dynamic Progress Underline */}
-          <div className="flex flex-1 items-center justify-around gap-2 sm:gap-4 overflow-x-auto hide-scrollbar px-2">
+          {/* Desktop & Tablet: Full 4-Movie Tabs with Dynamic Progress Underline (Image 5) */}
+          <div className="hidden sm:flex flex-1 items-center justify-around gap-2 sm:gap-4 overflow-x-auto hide-scrollbar px-2">
             {featuredHeroSlides.map((slide, idx) => {
               const isActive = idx === currentIndex;
               return (
@@ -640,6 +659,27 @@ function UniversalHeroSlider({
             })}
           </div>
 
+          {/* Mobile Only: Active Slide Title with Slide Dots */}
+          <div className="flex sm:hidden flex-1 flex-col items-center text-center px-2 min-w-0">
+            <span className="text-xs font-bold uppercase tracking-wider text-white truncate max-w-[170px]">
+              {activeSlide.title}
+            </span>
+            <div className="flex items-center gap-1.5 mt-1">
+              {featuredHeroSlides.map((s, idx) => (
+                <button
+                  key={`dot-${s.id}`}
+                  type="button"
+                  onClick={() => goToSlide(idx)}
+                  className={cn(
+                    "h-1.5 rounded-full transition-all cursor-pointer",
+                    idx === currentIndex ? "w-5 bg-[#8B151A]" : "w-1.5 bg-white/30",
+                  )}
+                  aria-label={`Go to slide ${idx + 1}`}
+                />
+              ))}
+            </div>
+          </div>
+
           {/* Right Pause / Play Circular Button (Matches Image 5) */}
           <div className="shrink-0 flex items-center">
             <button
@@ -648,12 +688,12 @@ function UniversalHeroSlider({
               aria-label={
                 isPlaying ? "Pause automatic slide rotation" : "Resume automatic slide rotation"
               }
-              className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/10 hover:bg-white/25 text-white flex items-center justify-center transition border border-white/10 cursor-pointer"
+              className="w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-white/10 hover:bg-white/25 text-white flex items-center justify-center transition border border-white/10 cursor-pointer"
             >
               {isPlaying ? (
-                <Pause size={14} className="fill-current" />
+                <Pause size={13} className="fill-current" />
               ) : (
-                <Play size={14} className="fill-current ml-0.5" />
+                <Play size={13} className="fill-current ml-0.5" />
               )}
             </button>
           </div>
@@ -886,28 +926,28 @@ function ComingSoonSection({
               </span>
             </div>
 
-            <h2 className="font-display text-5xl sm:text-7xl lg:text-8xl font-black uppercase text-[#F5F5F7] leading-[0.88] tracking-tight">
+            <h2 className="font-display text-4xl sm:text-6xl lg:text-8xl font-black uppercase text-[#F5F5F7] leading-[0.88] tracking-tight">
               THE BOOK OF
               <br />
               EXODUS
             </h2>
 
-            <p className="mt-3 font-serif italic text-base sm:text-lg text-[#F5F5F7]/90">
+            <p className="mt-3 font-serif italic text-sm sm:text-lg text-[#F5F5F7]/90">
               {exodusDetails.headline}
             </p>
 
-            <p className="mt-5 text-sm sm:text-base leading-relaxed text-[#8E8E93] max-w-md">
+            <p className="mt-4 text-xs sm:text-base leading-relaxed text-[#8E8E93] max-w-md">
               {exodusDetails.description}
             </p>
 
             {/* Plain Bold Text Stats directly on background - NO BOXES, NO BORDERS (Per User Image 1) */}
-            <div className="mt-8 grid grid-cols-3 gap-6 sm:gap-8 w-full max-w-xl">
+            <div className="mt-6 sm:mt-8 grid grid-cols-3 gap-2.5 sm:gap-6 w-full max-w-xl">
               {exodusDetails.stats.map((stat) => (
                 <div key={stat.label}>
-                  <p className="font-display text-3xl sm:text-4xl lg:text-5xl uppercase text-[#F5F5F7] font-bold tracking-tight">
+                  <p className="font-display text-2xl sm:text-4xl lg:text-5xl uppercase text-[#F5F5F7] font-bold tracking-tight">
                     {stat.value}
                   </p>
-                  <p className="text-xs sm:text-sm text-[#8E8E93] uppercase tracking-wider mt-1 font-semibold">
+                  <p className="text-[10px] sm:text-xs text-[#8E8E93] uppercase tracking-wider mt-1 font-semibold leading-tight">
                     {stat.label}
                   </p>
                 </div>
@@ -915,7 +955,7 @@ function ComingSoonSection({
             </div>
 
             {/* Fully Rounded 50px Action Pills */}
-            <div className="mt-8 flex flex-wrap gap-4">
+            <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto">
               <button
                 type="button"
                 onClick={() =>
@@ -926,7 +966,7 @@ function ComingSoonSection({
                     exodusDetails.startSeconds,
                   )
                 }
-                className="btn-pill-crimson px-8 py-3.5 text-xs font-bold uppercase tracking-wider flex items-center gap-2 cursor-pointer shadow-lg hover:scale-105 active:scale-95"
+                className="btn-pill-crimson px-7 py-3.5 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-lg hover:scale-105 active:scale-95"
               >
                 <Play size={14} className="fill-current" /> Watch Teaser
               </button>
@@ -935,7 +975,7 @@ function ComingSoonSection({
                 href={exodusDetails.watchChaptersUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="btn-pill-outline px-8 py-3.5 text-xs font-bold uppercase tracking-wider flex items-center gap-2 cursor-pointer hover:scale-105 active:scale-95"
+                className="btn-pill-outline px-7 py-3.5 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer hover:scale-105 active:scale-95"
               >
                 Explore NRIM Visual Bible <ExternalLink size={14} />
               </a>
@@ -959,7 +999,7 @@ function ComingSoonSection({
               }}
             />
 
-            <div className="grid grid-cols-2 gap-5 sm:gap-7 h-[580px] sm:h-[660px] overflow-hidden py-3">
+            <div className="grid grid-cols-2 gap-3 sm:gap-7 h-[380px] sm:h-[540px] lg:h-[660px] overflow-hidden py-3">
               {/* Column 1: Smooth Infinite Scroll Upwards */}
               <div className="flex flex-col gap-6 sm:gap-8 animate-marquee-up">
                 {columnOnePosters.map((poster, idx) => (
