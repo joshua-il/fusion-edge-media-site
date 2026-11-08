@@ -1293,7 +1293,8 @@ function ContactSection() {
             </h2>
 
             <p className="mt-4 font-serif italic text-base sm:text-lg leading-relaxed text-[#8E8E93]">
-              Submit your feature production, co-production, or worldwide distribution project brief to Fusion Edge Media.
+              Submit your feature production, co-production, or worldwide distribution project brief
+              to Fusion Edge Media.
             </p>
           </div>
 
@@ -1308,7 +1309,8 @@ function ContactSection() {
                   Project Brief Received
                 </h3>
                 <p className="mt-2 text-sm text-[#8E8E93] leading-relaxed">
-                  Your inquiry has been encrypted and recorded into the studio executive vault. A senior producer will review and reach out to your team promptly.
+                  Your inquiry has been encrypted and recorded into the studio executive vault. A
+                  senior producer will review and reach out to your team promptly.
                 </p>
                 <button
                   type="button"
@@ -1449,13 +1451,7 @@ function ContactSection() {
   );
 }
 
-function AdminInquiriesModal({
-  isOpen,
-  onClose,
-}: {
-  isOpen: boolean;
-  onClose: () => void;
-}) {
+function AdminInquiriesModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   const [inquiries, setInquiries] = useState<StudioInquiry[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -1744,10 +1740,7 @@ function UniversalFooter({ onOpenSecretAdmin }: { onOpenSecretAdmin: () => void 
       </div>
 
       <div className="page-gutter flex flex-col gap-3 border-t border-white/10 py-6 text-[11px] uppercase tracking-[0.14em] text-[#8E8E93] sm:flex-row sm:items-center sm:justify-between">
-        <span
-          onDoubleClick={onOpenSecretAdmin}
-          className="cursor-default select-none"
-        >
+        <span onDoubleClick={onOpenSecretAdmin} className="cursor-default select-none">
           © 2026 Fusion Edge Media. All rights reserved.
         </span>
         <span className="font-serif italic lowercase tracking-normal">a Prossiga Corp company</span>
@@ -1853,10 +1846,7 @@ export function LandingPage() {
       />
 
       {/* Studio Executive Inquiries Vault (Admin) */}
-      <AdminInquiriesModal
-        isOpen={isAdminVaultOpen}
-        onClose={handleCloseAdminVault}
-      />
+      <AdminInquiriesModal isOpen={isAdminVaultOpen} onClose={handleCloseAdminVault} />
     </div>
   );
 }
