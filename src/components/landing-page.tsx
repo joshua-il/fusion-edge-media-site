@@ -526,28 +526,28 @@ function UniversalHeroSlider({
         <div key={activeSlide.id} className="animate-hero-slide">
           {/* Hollywood Poster Highlight: Large, Bold, Prestigious letter-spaced Billing Highlight */}
           {activeSlide.id === "exodus" ? (
-            <div className="mb-3 sm:mb-5 flex items-center gap-2.5 sm:gap-4">
-              <span className="h-[2px] w-6 sm:w-14 bg-[#8B151A]" />
-              <span className="font-display text-xl sm:text-3xl md:text-4xl lg:text-5xl tracking-[0.2em] sm:tracking-[0.3em] uppercase text-[#F5F5F7] font-bold drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)] whitespace-nowrap">
+            <div className="mb-2.5 sm:mb-4 flex items-center gap-2 sm:gap-3.5">
+              <span className="h-[2px] w-5 sm:w-12 bg-[#8B151A]" />
+              <span className="font-display text-base sm:text-2xl md:text-3xl lg:text-4xl tracking-[0.2em] sm:tracking-[0.26em] uppercase text-[#F5F5F7] font-bold drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)] whitespace-nowrap">
                 2027 RELEASE
               </span>
-              <span className="h-[2px] w-6 sm:w-14 bg-[#8B151A]" />
+              <span className="h-[2px] w-5 sm:w-12 bg-[#8B151A]" />
             </div>
           ) : (
-            <div className="mb-2 sm:mb-4 flex items-center gap-2 sm:gap-3">
-              <span className="h-[2px] w-5 sm:w-8 bg-[#8B151A]" />
-              <span className="font-display text-xs sm:text-base md:text-lg tracking-[0.2em] uppercase text-[#F5F5F7]/90 font-bold drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+            <div className="mb-2 sm:mb-3 flex items-center gap-2 sm:gap-3">
+              <span className="h-[2px] w-4 sm:w-7 bg-[#8B151A]" />
+              <span className="font-display text-xs sm:text-sm md:text-base tracking-[0.18em] uppercase text-[#F5F5F7]/90 font-bold drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
                 {activeSlide.eyebrow}
               </span>
             </div>
           )}
 
-          <h1 className="font-display text-4xl sm:text-6xl md:text-8xl lg:text-9xl uppercase tracking-tight text-[#F5F5F7] leading-[0.88] drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]">
+          <h1 className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl uppercase tracking-tight text-[#F5F5F7] leading-[0.92] drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]">
             {activeSlide.title}
           </h1>
 
           {activeSlide.subtitle && (
-            <p className="mt-2 sm:mt-3 font-display text-xl sm:text-3xl md:text-4xl uppercase tracking-[0.16em] text-[#8E8E93] drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+            <p className="mt-1.5 sm:mt-2 font-display text-base sm:text-xl md:text-2xl uppercase tracking-[0.14em] text-[#8E8E93] drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
               {activeSlide.subtitle}
             </p>
           )}
@@ -925,18 +925,18 @@ function ComingSoonSection({
         <div className="grid gap-12 lg:grid-cols-[420px_1fr] xl:grid-cols-[460px_1fr] items-center">
           {/* Left Column: Bold Typography & Simple Bold Text Stats (NO BOXES, NO BORDERS) */}
           <div className="flex flex-col items-start">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="h-[2px] w-8 bg-[#8B151A]" />
-              <span className="font-display text-lg sm:text-xl tracking-[0.25em] uppercase text-[#8B151A] font-bold">
+            <div className="flex items-center gap-3 mb-3">
+              <span className="h-[2px] w-7 bg-[#8B151A]" />
+              <span className="font-display text-base sm:text-lg tracking-[0.22em] uppercase text-[#8B151A] font-bold">
                 COMING SOON · 2027
               </span>
             </div>
 
-            <h2 className="font-display text-4xl sm:text-6xl lg:text-8xl font-black uppercase text-[#F5F5F7] leading-[0.88] tracking-tight">
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black uppercase text-[#F5F5F7] leading-[0.92] tracking-tight">
               LET MY PEOPLE GO
             </h2>
 
-            <p className="mt-2 sm:mt-3 font-display text-xl sm:text-3xl lg:text-4xl uppercase tracking-[0.16em] text-[#8E8E93] font-bold">
+            <p className="mt-1.5 sm:mt-2 font-display text-base sm:text-xl lg:text-2xl uppercase tracking-[0.14em] text-[#8E8E93] font-bold">
               THE BOOK OF EXODUS
             </p>
 
