@@ -552,6 +552,11 @@ function UniversalHeroSlider({
                 alt={`${activeSlide.title}${activeSlide.subtitle ? ` - ${activeSlide.subtitle}` : ""}`}
                 className="h-16 sm:h-24 md:h-32 lg:h-36 xl:h-44 w-auto max-w-full object-contain object-left drop-shadow-[0_6px_28px_rgba(0,0,0,0.95)]"
               />
+              {activeSlide.subtitle && (
+                <p className="mt-2 sm:mt-2.5 font-display text-base sm:text-xl md:text-2xl uppercase tracking-[0.16em] text-[#8E8E93] drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+                  {activeSlide.subtitle}
+                </p>
+              )}
             </div>
           ) : (
             <>
@@ -649,7 +654,7 @@ function UniversalHeroSlider({
                       isActive ? "text-white font-bold" : "text-white/60 group-hover:text-white",
                     )}
                   >
-                    {slide.title}
+                    {slide.id === "exodus" ? "YAHWEH" : slide.title}
                   </span>
                   <span
                     className={cn(
@@ -884,49 +889,19 @@ function ComingSoonSection({
     }
   };
 
-  // Strictly the 3 user-uploaded Exodus posters ONLY (NO Genesis, NO random images)
-  const exodusPostersOnly = [
-    {
-      id: "exodus-parting-sea",
-      title: "The Book of Exodus",
-      subtitle: "Deliverance Through the Parting Waters",
-      image: "/images/posters/exodus-parting-sea.jpg",
-      alt: "The Book of Exodus - Moses at the Parting of the Red Sea",
-    },
-    {
-      id: "exodus-tablets",
-      title: "The Ten Commandments",
-      subtitle: "The Divine Law at Mount Sinai",
-      image: "/images/posters/exodus-tablets.jpg",
-      alt: "The Book of Exodus - Moses Holding the Ten Commandments Tablets",
-    },
-    {
-      id: "exodus-staff",
-      title: "The Call of the Prophet",
-      subtitle: "Unwavering Faith in the Desert",
-      image: "/images/posters/exodus-staff.jpg",
-      alt: "The Book of Exodus - Moses with Staff Against the Storm",
-    },
-  ];
+  // Column 1 marquee sequence (the 4 user-uploaded Exodus posters, repeated for seamless vertical loop)
+  const columnOnePosters = [...exodusPosters, ...exodusPosters];
 
-  // Column 1 marquee sequence (only Exodus posters, duplicated for infinite seamless vertical loop)
-  const columnOnePosters = [
-    exodusPostersOnly[0]!,
-    exodusPostersOnly[1]!,
-    exodusPostersOnly[2]!,
-    exodusPostersOnly[0]!,
-    exodusPostersOnly[1]!,
-    exodusPostersOnly[2]!,
-  ];
-
-  // Column 2 marquee sequence (staggered start for dynamic layout, strictly Exodus posters only)
+  // Column 2 marquee sequence (staggered start for dynamic variation between columns)
   const columnTwoPosters = [
-    exodusPostersOnly[1]!,
-    exodusPostersOnly[2]!,
-    exodusPostersOnly[0]!,
-    exodusPostersOnly[1]!,
-    exodusPostersOnly[2]!,
-    exodusPostersOnly[0]!,
+    exodusPosters[2]!,
+    exodusPosters[3]!,
+    exodusPosters[0]!,
+    exodusPosters[1]!,
+    exodusPosters[2]!,
+    exodusPosters[3]!,
+    exodusPosters[0]!,
+    exodusPosters[1]!,
   ];
 
   return (
@@ -957,14 +932,19 @@ function ComingSoonSection({
                   alt={`${exodusDetails.title} - ${exodusDetails.subtitle}`}
                   className="h-14 sm:h-20 lg:h-24 w-auto max-w-full object-contain object-left drop-shadow-[0_4px_20px_rgba(0,0,0,0.9)]"
                 />
+                {exodusDetails.subtitle && (
+                  <p className="mt-2 font-display text-base sm:text-xl lg:text-2xl uppercase tracking-[0.15em] text-[#8E8E93] font-bold">
+                    {exodusDetails.subtitle}
+                  </p>
+                )}
               </div>
             ) : (
               <>
-                <h2 className="font-display text-3xl sm:text-5xl lg:text-5xl xl:text-6xl font-black uppercase text-[#F5F5F7] leading-[0.92] tracking-tight sm:whitespace-nowrap">
+                <h2 className="font-display text-3xl sm:text-5xl lg:text-5xl xl:text-6xl font-black uppercase text-[#F5F5F7] leading-[0.92] tracking-tight">
                   {exodusDetails.title}
                 </h2>
 
-                <p className="mt-2 font-display text-lg sm:text-2xl lg:text-3xl uppercase tracking-[0.15em] text-[#8E8E93] font-bold sm:whitespace-nowrap">
+                <p className="mt-2 font-display text-lg sm:text-2xl lg:text-3xl uppercase tracking-[0.15em] text-[#8E8E93] font-bold">
                   {exodusDetails.subtitle}
                 </p>
               </>
