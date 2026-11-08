@@ -546,6 +546,12 @@ function UniversalHeroSlider({
             {activeSlide.title}
           </h1>
 
+          {activeSlide.subtitle && (
+            <p className="mt-2 sm:mt-3 font-display text-xl sm:text-3xl md:text-4xl uppercase tracking-[0.16em] text-[#8E8E93] drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+              {activeSlide.subtitle}
+            </p>
+          )}
+
           <p className="mt-3 max-w-xl font-serif italic text-sm sm:text-lg md:text-2xl text-[#F5F5F7]/95 leading-relaxed drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
             {activeSlide.tagline}
           </p>
@@ -927,10 +933,12 @@ function ComingSoonSection({
             </div>
 
             <h2 className="font-display text-4xl sm:text-6xl lg:text-8xl font-black uppercase text-[#F5F5F7] leading-[0.88] tracking-tight">
-              THE BOOK OF
-              <br />
-              EXODUS
+              LET MY PEOPLE GO
             </h2>
+
+            <p className="mt-2 sm:mt-3 font-display text-xl sm:text-3xl lg:text-4xl uppercase tracking-[0.16em] text-[#8E8E93] font-bold">
+              THE BOOK OF EXODUS
+            </p>
 
             <p className="mt-3 font-serif italic text-sm sm:text-lg text-[#F5F5F7]/90">
               {exodusDetails.headline}

@@ -35,6 +35,7 @@ export interface HeroSlide {
   id: string;
   eyebrow: string;
   title: string;
+  subtitle?: string;
   tagline: string;
   description: string;
   statusLabel: string;
@@ -63,11 +64,12 @@ export const featuredHeroSlides: HeroSlide[] = [
   {
     id: "exodus",
     eyebrow: "2027 RELEASE",
-    title: "THE BOOK OF EXODUS",
-    tagline: "NRIM Visual Bible Project - 2027 Feature Film",
+    title: "LET MY PEOPLE GO",
+    subtitle: "The Book of Exodus",
+    tagline: "NRIM Visual Bible Project · 2027 Theatrical Feature Film",
     description:
       "Nations Reach International Missions (NRIM) and Fusion Edge Media present The Book of Exodus. An epic cinematic visual Bible feature film produced with an advanced generative AI cinema pipeline.",
-    statusLabel: "2027 Release",
+    statusLabel: "The Book of Exodus",
     primaryCta: {
       label: "Explore",
       action: "link",
@@ -80,11 +82,12 @@ export const featuredHeroSlides: HeroSlide[] = [
   {
     id: "genesis",
     eyebrow: "IN PRODUCTION • 90-MINUTE AI FEATURE FILM",
-    title: "THE BOOK OF GENESIS",
-    tagline: "NRIM Visual Bible Project - 90 Minute Feature Film",
+    title: "IN THE BEGINNING",
+    subtitle: "The Book of Genesis",
+    tagline: "NRIM Visual Bible Project · 90-Minute Feature Film",
     description:
       "Nations Reach International Missions (NRIM) and Fusion Edge Media unite to produce a historic 90-minute visual bible feature film utilizing an unprecedented, cutting-edge generative AI cinema pipeline.",
-    statusLabel: "In Production",
+    statusLabel: "The Book of Genesis",
     primaryCta: {
       label: "Watch Chapters",
       action: "link",
@@ -619,7 +622,8 @@ export const exodusPosters: ExodusPoster[] = [
 ];
 
 export const exodusDetails = {
-  title: "The Book of Exodus",
+  title: "Let My People Go",
+  subtitle: "The Book of Exodus",
   headline: "An NRIM Production · 2027 Theatrical Feature Film",
   client: "Nations Reach International Missions (NRIM)",
   production: "Fusion Edge Media",
@@ -638,7 +642,8 @@ export const exodusDetails = {
 };
 
 export const genesisDetails = {
-  title: "NRIM Visual Bible Project",
+  title: "In the Beginning",
+  subtitle: "The Book of Genesis",
   headline: "The Book of Genesis - Fully AI 90 minute Feature film - In Production",
   client: "Nations Reach International Missions (NRIM)",
   production: "Fusion Edge Media",
