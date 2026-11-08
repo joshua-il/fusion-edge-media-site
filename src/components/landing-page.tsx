@@ -1,30 +1,33 @@
 import { useEffect, useRef, useState } from "react";
 import {
-  ArrowLeft,
   ArrowRight,
+  CheckCircle2,
   ChevronLeft,
   ChevronRight,
+  Download,
   ExternalLink,
-  Film,
   Menu,
+  Pause,
   Play,
-  Sparkles,
+  Search,
+  Send,
+  ShieldCheck,
+  Trash2,
   Volume2,
   VolumeX,
   X,
 } from "lucide-react";
-import genesisHero from "@/assets/genesis-hero.jpg";
 import {
   afaFilms,
   allFilmWorks,
+  exodusDetails,
+  exodusPosters,
   featuredHeroSlides,
   type FilmWork,
-  genesisDetails,
   type HeroSlide,
   inReleaseFilms,
   studioDivisions,
 } from "@/data/site-content";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const navItems = [
@@ -72,21 +75,21 @@ function CinemaVideoModal({
       role="dialog"
       aria-modal="true"
       aria-label={video.title}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4 backdrop-blur-md animate-reveal"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4 animate-reveal"
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-5xl overflow-hidden rounded-2xl border border-white/15 bg-card shadow-2xl"
+        className="relative w-full max-w-5xl overflow-hidden rounded-2xl bg-[#141416] shadow-2xl border border-white/10"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between border-b border-border/40 px-6 py-4 bg-background/90">
+        <div className="flex items-center justify-between px-6 py-4 bg-[#0A0A0A] border-b border-white/10">
           <div>
             {video.category && (
-              <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#1d63ff]">
+              <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#8B151A]">
                 {video.category}
               </span>
             )}
-            <h3 className="font-display text-xl uppercase tracking-wider text-foreground sm:text-2xl">
+            <h3 className="font-display text-xl uppercase tracking-wider text-[#F5F5F7] sm:text-2xl">
               {video.title}
             </h3>
           </div>
@@ -94,7 +97,7 @@ function CinemaVideoModal({
             type="button"
             aria-label="Close video player"
             onClick={onClose}
-            className="rounded-full border border-border/50 p-2 text-muted-foreground transition hover:border-primary hover:text-foreground cursor-pointer"
+            className="rounded-full bg-white/10 p-2 text-[#8E8E93] transition hover:text-[#F5F5F7] hover:bg-white/20 cursor-pointer"
           >
             <X size={20} />
           </button>
@@ -143,11 +146,11 @@ function PosterInspectorModal({
       role="dialog"
       aria-modal="true"
       aria-label={film.title}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4 backdrop-blur-md animate-reveal"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4 animate-reveal"
       onClick={onClose}
     >
       <div
-        className="relative flex max-h-[92vh] w-full max-w-4xl flex-col md:flex-row overflow-hidden rounded-2xl border border-white/15 bg-card shadow-2xl"
+        className="relative flex max-h-[92vh] w-full max-w-4xl flex-col md:flex-row overflow-hidden rounded-2xl bg-[#141416] shadow-2xl border border-white/10"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="relative aspect-[2/3] md:w-1/2 overflow-hidden bg-black shrink-0">
@@ -157,47 +160,47 @@ function PosterInspectorModal({
             className="h-full w-full object-contain md:object-cover"
           />
         </div>
-        <div className="flex flex-1 flex-col justify-between p-6 md:p-8 overflow-y-auto">
+        <div className="flex flex-1 flex-col justify-between p-6 md:p-8 overflow-y-auto bg-[#141416]">
           <div>
             <div className="flex items-center justify-between gap-3">
-              <span className="rounded-full bg-[#1d63ff]/20 px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#1d63ff]">
+              <span className="rounded-full bg-[#8B151A]/20 px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#F5F5F7]">
                 {film.categoryLabel}
               </span>
               <button
                 type="button"
                 aria-label="Close poster view"
                 onClick={onClose}
-                className="rounded-full border border-border/50 p-1.5 text-muted-foreground transition hover:text-foreground cursor-pointer"
+                className="rounded-full bg-white/10 p-1.5 text-[#8E8E93] transition hover:text-[#F5F5F7] hover:bg-white/20 cursor-pointer"
               >
                 <X size={18} />
               </button>
             </div>
-            <h3 className="mt-4 font-display text-3xl uppercase text-foreground md:text-4xl">
+            <h3 className="mt-4 font-display text-3xl uppercase text-[#F5F5F7] md:text-4xl">
               {film.title}
             </h3>
-            <span className="font-mono text-sm text-[#1d63ff] font-bold">{film.year}</span>
-            <p className="mt-2 text-sm font-semibold uppercase tracking-wider text-foreground/80">
-              {film.tagline}
-            </p>
-            <p className="mt-4 text-sm leading-6 text-muted-foreground">{film.description}</p>
+            <span className="font-sans text-sm text-[#8B151A] font-black tracking-wider uppercase">
+              {film.year}
+            </span>
+            <p className="mt-2 font-serif italic text-sm text-[#F5F5F7]/90">{film.tagline}</p>
+            <p className="mt-4 text-sm leading-6 text-[#8E8E93]">{film.description}</p>
 
-            <div className="mt-6 space-y-2 border-t border-border/40 pt-4 text-xs">
+            <div className="mt-6 space-y-2 border-t border-white/10 pt-4 text-xs">
               {film.director && (
                 <div>
-                  <span className="font-bold text-foreground">Director:</span>{" "}
-                  <span className="text-muted-foreground">{film.director}</span>
+                  <span className="font-bold text-[#F5F5F7]">Director:</span>{" "}
+                  <span className="font-serif italic text-[#8E8E93]">{film.director}</span>
                 </div>
               )}
               {film.producers && (
                 <div>
-                  <span className="font-bold text-foreground">Production:</span>{" "}
-                  <span className="text-muted-foreground">{film.producers}</span>
+                  <span className="font-bold text-[#F5F5F7]">Production:</span>{" "}
+                  <span className="text-[#8E8E93]">{film.producers}</span>
                 </div>
               )}
               {film.credits && (
                 <div>
-                  <span className="font-bold text-foreground">Starring:</span>{" "}
-                  <span className="text-muted-foreground">{film.credits}</span>
+                  <span className="font-bold text-[#F5F5F7]">Starring:</span>{" "}
+                  <span className="text-[#8E8E93]">{film.credits}</span>
                 </div>
               )}
             </div>
@@ -211,7 +214,7 @@ function PosterInspectorModal({
                   onClose();
                   onPlayVideo(film.videoId!, film.title, "Official Reel", film.startSeconds);
                 }}
-                className="flex-1 rounded-full bg-[#1d63ff] hover:bg-[#1550d4] text-white px-6 py-3 text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer"
+                className="btn-pill-crimson flex-1 px-6 py-3 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-lg"
               >
                 <Play size={14} className="fill-current" /> Watch Video
               </button>
@@ -221,7 +224,7 @@ function PosterInspectorModal({
                 href={film.link}
                 target="_blank"
                 rel="noreferrer"
-                className="flex-1 rounded-full border border-white/30 bg-white/10 hover:bg-white/20 text-white px-6 py-3 text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 text-center"
+                className="btn-pill-outline flex-1 px-6 py-3 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 text-center"
               >
                 Stream Now <ExternalLink size={14} />
               </a>
@@ -229,7 +232,7 @@ function PosterInspectorModal({
             <button
               type="button"
               onClick={onClose}
-              className="rounded-full border border-white/20 px-5 py-3 text-xs font-bold uppercase tracking-wider text-muted-foreground hover:text-white transition-all cursor-pointer"
+              className="btn-pill-outline px-6 py-3 text-xs font-bold uppercase tracking-wider cursor-pointer"
             >
               Close
             </button>
@@ -240,60 +243,54 @@ function PosterInspectorModal({
   );
 }
 
-function UniversalHeader({
-  onPlayVfxReel,
-}: {
-  onPlayVfxReel: () => void;
-}) {
+function UniversalHeader({ onPlayVfxReel }: { onPlayVfxReel: () => void }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-40 border-b border-white/10 bg-background/95 backdrop-blur-xl transition-all">
+    <header className="fixed inset-x-0 top-0 z-40 bg-[#0A0A0A]/95 transition-all">
       <div className="page-gutter flex h-20 items-center justify-between lg:h-24">
-        {/* Prominent Fusion Edge Media Studio Logo - Large, Crisp, No Box */}
+        {/* Fusion Edge Media Studio Logo & Tagline */}
         <a
           href="#top"
           aria-label="Fusion Edge Media home"
-          className="relative z-50 flex items-center transition-transform hover:scale-105 focus-visible:outline-none"
+          className="relative z-50 flex items-center gap-4 transition-transform hover:scale-[1.02] focus-visible:outline-none"
         >
           <img
             src="/images/logos/fusion-edge-logo.png"
             alt="Fusion Edge Media"
-            className="h-12 sm:h-14 md:h-16 w-auto object-contain"
+            className="h-11 sm:h-13 md:h-14 w-auto object-contain"
             width="480"
             height="140"
           />
+          <span className="hidden xl:inline-block font-serif italic text-xs text-[#8E8E93] border-l border-white/15 pl-3">
+            Connecting Continents in Film Making
+          </span>
         </a>
 
-        {/* Desktop Hollywood Studio Navigation */}
+        {/* Hollywood Studio Navigation */}
         <nav className="hidden items-center gap-6 xl:gap-8 lg:flex" aria-label="Main navigation">
           {navItems.map((item) => (
-            <a
-              key={item.label}
-              href={item.href}
-              className="text-xs font-bold uppercase tracking-[0.18em] text-foreground/75 hover:text-foreground transition-colors"
-            >
+            <a key={item.label} href={item.href} className="nav-link">
               {item.label}
             </a>
           ))}
         </nav>
 
-        {/* Right CTA Actions */}
+        {/* Right CTA Actions - 50px Fully Rounded Pills */}
         <div className="hidden items-center gap-3 lg:flex">
-          {/* Direct link to NRIM Visual Bible Chapters */}
           <a
             href="https://visualbible.nrim.org/"
             target="_blank"
             rel="noreferrer"
-            className="flex items-center gap-2 rounded-full border border-[#1d63ff]/80 bg-[#1d63ff]/15 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#1d63ff] transition-all cursor-pointer shadow-lg shadow-blue-500/20"
+            className="btn-pill-crimson flex items-center gap-2 px-5 py-2.5 text-xs font-bold uppercase tracking-wider cursor-pointer shadow-lg"
           >
-            <ExternalLink size={13} className="text-[#1d63ff] group-hover:text-white" />
-            Visual Bible Chapters
+            <ExternalLink size={13} />
+            Visual Bible
           </a>
 
           <a
             href="#contact"
-            className="rounded-full border border-white/20 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-foreground hover:border-white hover:bg-white/10 transition-all"
+            className="btn-pill-outline px-5 py-2.5 text-xs font-bold uppercase tracking-wider"
           >
             Contact
           </a>
@@ -304,28 +301,31 @@ function UniversalHeader({
           type="button"
           aria-label={open ? "Close menu" : "Open menu"}
           onClick={() => setOpen((val) => !val)}
-          className="relative z-50 rounded-lg p-2 text-foreground hover:bg-white/10 lg:hidden cursor-pointer"
+          className="relative z-50 rounded-full p-2.5 text-[#F5F5F7] bg-white/5 hover:bg-white/10 lg:hidden cursor-pointer"
         >
-          {open ? <X size={24} /> : <Menu size={24} />}
+          {open ? <X size={22} /> : <Menu size={22} />}
         </button>
       </div>
 
       {/* Mobile Drawer */}
       <div
         className={cn(
-          "fixed inset-0 z-40 flex flex-col justify-center bg-background/98 px-8 transition-all duration-300 lg:hidden",
-          open ? "visible opacity-100" : "invisible opacity-0"
+          "fixed inset-0 z-40 flex flex-col justify-center bg-[#0A0A0A]/98 px-8 transition-all duration-300 lg:hidden",
+          open ? "visible opacity-100" : "invisible opacity-0",
         )}
       >
-        <nav className="flex flex-col gap-3" aria-label="Mobile navigation">
+        <p className="font-serif italic text-sm text-[#8E8E93] mb-4">
+          Connecting Continents in Film Making
+        </p>
+        <nav className="flex flex-col gap-2" aria-label="Mobile navigation">
           {navItems.map((item, index) => (
             <a
               key={item.label}
               href={item.href}
               onClick={() => setOpen(false)}
-              className="border-b border-border/40 py-3.5 font-display text-2xl uppercase tracking-wider text-foreground hover:text-[#1d63ff] transition-colors"
+              className="border-b border-white/10 py-3 font-display text-2xl uppercase tracking-wider text-[#F5F5F7] hover:text-[#8B151A] transition-colors"
             >
-              <span className="mr-3 font-sans text-xs text-[#1d63ff] font-bold">0{index + 1}</span>
+              <span className="mr-3 font-sans text-xs text-[#8B151A] font-bold">0{index + 1}</span>
               {item.label}
             </a>
           ))}
@@ -333,7 +333,7 @@ function UniversalHeader({
         <div className="mt-8 flex flex-col gap-3">
           <button
             type="button"
-            className="rounded-full bg-[#1d63ff] text-white py-4 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer"
+            className="btn-pill-crimson py-3.5 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer"
             onClick={() => {
               setOpen(false);
               onPlayVfxReel();
@@ -344,7 +344,7 @@ function UniversalHeader({
           <a
             href="#contact"
             onClick={() => setOpen(false)}
-            className="rounded-full border border-white/30 text-white py-4 text-xs font-bold uppercase tracking-wider text-center"
+            className="btn-pill-outline py-3.5 text-xs font-bold uppercase tracking-wider text-center"
           >
             Contact Studio
           </a>
@@ -364,6 +364,7 @@ function UniversalHeroSlider({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMuted, setIsMuted] = useState(true);
   const [progressKey, setProgressKey] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(true);
 
   const activeSlide: HeroSlide = featuredHeroSlides[currentIndex] ?? featuredHeroSlides[0]!;
 
@@ -372,8 +373,9 @@ function UniversalHeroSlider({
     setProgressKey((k) => k + 1);
   };
 
-  // Auto advance every 10 seconds smoothly
+  // Auto advance smoothly every 10 seconds when isPlaying is true
   useEffect(() => {
+    if (!isPlaying) return;
     const timer = setInterval(() => {
       setCurrentIndex((prev) => {
         const next = (prev + 1) % featuredHeroSlides.length;
@@ -382,7 +384,7 @@ function UniversalHeroSlider({
       });
     }, 10000);
     return () => clearInterval(timer);
-  }, [currentIndex]);
+  }, [currentIndex, isPlaying]);
 
   const handlePrev = () => {
     goToSlide((currentIndex - 1 + featuredHeroSlides.length) % featuredHeroSlides.length);
@@ -394,58 +396,76 @@ function UniversalHeroSlider({
 
   const handlePrimaryAction = (slide: HeroSlide) => {
     if (slide.primaryCta.action === "link" && slide.primaryCta.href) {
-      window.open(slide.primaryCta.href, "_blank", "noopener,noreferrer");
+      if (slide.primaryCta.href.startsWith("#")) {
+        const el = document.querySelector(slide.primaryCta.href);
+        el?.scrollIntoView({ behavior: "smooth" });
+      } else {
+        window.open(slide.primaryCta.href, "_blank", "noopener,noreferrer");
+      }
     } else if (slide.primaryCta.action === "filmModal" && slide.primaryCta.filmId) {
       onInspectFilm(slide.primaryCta.filmId);
+    } else if (slide.primaryCta.action === "videoModal" && slide.primaryCta.videoId) {
+      onPlayVideo(
+        slide.primaryCta.videoId,
+        slide.title,
+        slide.statusLabel,
+        slide.primaryCta.startSeconds ?? slide.startSeconds,
+      );
     }
   };
 
   const handleSecondaryAction = (slide: HeroSlide) => {
-    if (slide.secondaryCta.action === "videoModal" && slide.secondaryCta.videoId) {
+    if (!slide.secondaryCta) return;
+    if (slide.secondaryCta.action === "link" && slide.secondaryCta.href) {
+      if (slide.secondaryCta.href.startsWith("#")) {
+        const el = document.querySelector(slide.secondaryCta.href);
+        el?.scrollIntoView({ behavior: "smooth" });
+      } else {
+        window.open(slide.secondaryCta.href, "_blank", "noopener,noreferrer");
+      }
+    } else if (slide.secondaryCta.action === "filmModal" && slide.secondaryCta.filmId) {
+      onInspectFilm(slide.secondaryCta.filmId);
+    } else if (slide.secondaryCta.action === "videoModal" && slide.secondaryCta.videoId) {
       onPlayVideo(
         slide.secondaryCta.videoId,
         slide.title,
         slide.statusLabel,
-        slide.secondaryCta.startSeconds ?? slide.startSeconds
+        slide.secondaryCta.startSeconds ?? slide.startSeconds,
       );
-    } else if (slide.secondaryCta.action === "filmModal" && slide.secondaryCta.filmId) {
-      onInspectFilm(slide.secondaryCta.filmId);
-    } else if (slide.secondaryCta.action === "link" && slide.secondaryCta.href) {
-      window.open(slide.secondaryCta.href, "_blank", "noopener,noreferrer");
     }
   };
 
-  const currentVideoId = activeSlide.videoId ?? "kZn8QN_uLBY";
+  const currentVideoId = activeSlide.videoId ?? "mqyequybTKQ";
   const startParam = activeSlide.startSeconds ? `&start=${activeSlide.startSeconds}` : "";
 
   return (
     <section
       id="top"
       aria-label="Fusion Edge Studio Feature Banner"
-      className="relative flex min-h-[92svh] flex-col justify-between overflow-hidden pt-28 pb-10 md:pt-32 md:pb-12 border-b border-border/40"
+      className="relative flex min-h-[96svh] flex-col justify-between overflow-hidden pt-24 pb-8 md:pt-28 md:pb-10 bg-[#0A0A0A]"
     >
-      {/* Background Cinematic Motion Video - 100% VISIBLE & CRISP, NO OVERLAY CONTROLS OR PAUSE BUTTONS */}
+      {/* Background Cinematic Motion Video - 100% VISIBLE & BRIGHT ACROSS SCREEN */}
       <div className="absolute inset-0 overflow-hidden select-none pointer-events-none">
-        {/* Crisp Backdrop Image Fallback */}
+        {/* Crisp Fallback Poster Image */}
         <img
           src={activeSlide.backdropImage}
           alt=""
           className="absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-1000 ease-in-out"
         />
 
-        {/* Dynamic Video Iframe: Full 100% Opacity, NO CONTROLS, CONTINUOUS LOOP */}
+        {/* Dynamic Video Iframe: Full 100% Opacity, Continuous Play */}
         <iframe
-          key={`${activeSlide.id}-${currentVideoId}-${isMuted}`}
+          key={`${activeSlide.id}-${currentVideoId}-${isMuted}-${activeSlide.startSeconds}`}
           src={`https://www.youtube-nocookie.com/embed/${currentVideoId}?autoplay=1&mute=${isMuted ? 1 : 0}&controls=0&disablekb=1&fs=0&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1&enablejsapi=1&loop=1&playlist=${currentVideoId}&vq=hd1080${startParam}`}
           title={activeSlide.title}
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[56.25vw] min-h-[100svh] min-w-[177.78svh] object-cover pointer-events-none select-none scale-[1.08] opacity-100 transition-opacity duration-1000 ease-in-out"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         />
 
-        {/* Hollywood Directional Gradient: Dark on left behind text, 100% crystal clear on center & right */}
+        {/* Directional Scrim: Dark on the left behind text only; 100% CRYSTAL CLEAR, BRIGHT VIDEO on center and right */}
         <div className="absolute inset-0 bg-hero-scrim pointer-events-none" />
 
-        {/* Transparent Shield Overlay - Intercepts all clicks/touches to guarantee YouTube is never paused or focused */}
+        {/* Transparent Shield Overlay */}
         <div
           aria-hidden="true"
           className="absolute inset-0 z-10 select-none cursor-default bg-transparent pointer-events-auto"
@@ -462,9 +482,9 @@ function UniversalHeroSlider({
           type="button"
           onClick={() => setIsMuted((val) => !val)}
           aria-label={isMuted ? "Unmute background audio" : "Mute background audio"}
-          className="rounded-full border border-white/30 bg-black/60 p-2.5 text-white backdrop-blur-md transition hover:border-white hover:bg-black/90 cursor-pointer shadow-lg"
+          className="w-9 h-9 rounded-full bg-black/60 hover:bg-black/90 text-white flex items-center justify-center transition cursor-pointer backdrop-blur-md shadow-lg border border-white/20"
         >
-          {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
+          {isMuted ? <VolumeX size={15} /> : <Volume2 size={15} />}
         </button>
         <button
           type="button"
@@ -473,81 +493,107 @@ function UniversalHeroSlider({
               currentVideoId,
               activeSlide.title,
               activeSlide.statusLabel,
-              activeSlide.startSeconds
+              activeSlide.startSeconds,
             )
           }
-          className="rounded-full border border-white/30 bg-black/60 px-4 py-2 text-xs font-bold uppercase tracking-wider text-white backdrop-blur-md transition hover:border-white hover:bg-black/90 cursor-pointer flex items-center gap-1.5 shadow-lg"
+          className="rounded-full bg-black/60 hover:bg-black/90 px-4 py-2 text-xs font-bold uppercase tracking-wider text-white backdrop-blur-md transition cursor-pointer flex items-center gap-1.5 shadow-lg border border-white/20"
         >
-          <Play size={13} className="fill-current text-[#1d63ff]" /> Expand Video
+          <Play size={13} className="fill-current text-[#8B151A]" /> Expand Video
         </button>
       </div>
 
       {/* Center Left Showcase Content with Smooth Cinematic Entrance */}
-      <div className="page-gutter relative z-20 my-auto py-12 md:py-16 max-w-3xl">
+      <div className="page-gutter relative z-20 my-auto py-10 md:py-14 max-w-3xl">
         <div key={activeSlide.id} className="animate-hero-slide">
-          <p className="text-xs sm:text-sm font-bold uppercase tracking-[0.22em] text-white/95 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] mb-2">
-            {activeSlide.eyebrow}
-          </p>
+          {/* Hollywood Poster Highlight: Large, Bold, Prestigious letter-spaced Billing Highlight */}
+          {activeSlide.id === "exodus" ? (
+            <div className="mb-4 sm:mb-6 flex items-center gap-3 sm:gap-4">
+              <span className="h-[2px] w-8 sm:w-16 bg-[#8B151A]" />
+              <span className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-[0.25em] sm:tracking-[0.32em] uppercase text-[#F5F5F7] font-bold drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)]">
+                2027 RELEASE
+              </span>
+              <span className="h-[2px] w-8 sm:w-16 bg-[#8B151A]" />
+            </div>
+          ) : (
+            <div className="mb-3 sm:mb-4 flex items-center gap-2.5 sm:gap-3">
+              <span className="h-[2px] w-6 sm:w-10 bg-[#8B151A]" />
+              <span className="font-display text-sm sm:text-base md:text-lg tracking-[0.22em] uppercase text-[#F5F5F7]/90 font-bold drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+                {activeSlide.eyebrow}
+              </span>
+            </div>
+          )}
 
-          <h1 className="font-display text-5xl sm:text-7xl md:text-8xl lg:text-9xl uppercase tracking-tight text-white leading-[0.88] drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]">
+          <h1 className="font-display text-5xl sm:text-7xl md:text-8xl lg:text-9xl uppercase tracking-tight text-[#F5F5F7] leading-[0.88] drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]">
             {activeSlide.title}
           </h1>
 
-          <p className="mt-3.5 max-w-xl text-base sm:text-lg md:text-xl font-semibold text-white/95 leading-relaxed drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
+          <p className="mt-3.5 max-w-xl font-serif italic text-base sm:text-xl md:text-2xl text-[#F5F5F7]/95 leading-relaxed drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
             {activeSlide.tagline}
           </p>
 
-          <p className="mt-2 max-w-lg text-xs sm:text-sm text-white/80 leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+          <p className="mt-2.5 max-w-lg text-xs sm:text-sm text-[#F5F5F7]/85 leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
             {activeSlide.description}
           </p>
 
-          {/* Action Buttons (Blue Solid Pill + Frosted Outline Pill) */}
+          {/* Action Buttons: Fully Rounded 50px Pills */}
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <button
               type="button"
               onClick={() => handlePrimaryAction(activeSlide)}
-              className="rounded-full bg-[#1d63ff] hover:bg-[#1550d4] text-white px-9 py-3.5 text-xs sm:text-sm font-bold uppercase tracking-wider transition-all shadow-xl shadow-blue-500/30 flex items-center gap-2 cursor-pointer"
+              className="btn-pill-crimson px-8 py-3.5 text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center gap-2 cursor-pointer shadow-xl hover:scale-105 active:scale-95"
             >
-              {activeSlide.primaryCta.label} <ArrowRight size={15} />
+              {activeSlide.primaryCta.action === "videoModal" && (
+                <Play size={14} className="fill-current" />
+              )}
+              {activeSlide.primaryCta.label}
+              {activeSlide.primaryCta.action === "link" ? (
+                <ExternalLink size={14} />
+              ) : (
+                <ArrowRight size={15} />
+              )}
             </button>
 
-            <button
-              type="button"
-              onClick={() => handleSecondaryAction(activeSlide)}
-              className="rounded-full border border-white/50 bg-black/40 hover:border-white hover:bg-black/70 text-white backdrop-blur-md px-9 py-3.5 text-xs sm:text-sm font-bold uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer shadow-lg"
-            >
-              <Play size={14} className="fill-current text-[#1d63ff]" />
-              {activeSlide.secondaryCta.label}
-            </button>
+            {activeSlide.secondaryCta && (
+              <button
+                type="button"
+                onClick={() => handleSecondaryAction(activeSlide)}
+                className="btn-pill-outline px-8 py-3.5 text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center gap-2 cursor-pointer shadow-lg hover:scale-105 active:scale-95"
+              >
+                {activeSlide.secondaryCta.action === "videoModal" && (
+                  <Play size={14} className="fill-current text-[#8B151A]" />
+                )}
+                {activeSlide.secondaryCta.label}
+              </button>
+            )}
           </div>
         </div>
       </div>
 
-      {/* Universal Pictures Style Bottom Slider Dock */}
-      <div className="page-gutter relative z-20 w-full">
-        <div className="mx-auto max-w-5xl rounded-full border border-white/15 bg-black/70 px-4 py-2.5 backdrop-blur-xl shadow-2xl flex items-center justify-between gap-3 sm:gap-6">
-          {/* Arrow Buttons */}
-          <div className="flex items-center gap-1.5 shrink-0">
+      {/* Bottom Floating Pill Dock - EXACTLY MATCHING USER REFERENCE IMAGE 5 */}
+      <div className="page-gutter relative z-30 w-full pb-2 sm:pb-4">
+        <div className="mx-auto max-w-5xl rounded-full border border-white/20 bg-black/60 backdrop-blur-xl px-4 py-2 sm:px-6 sm:py-3 shadow-2xl flex items-center justify-between gap-3 sm:gap-5">
+          {/* Left Arrow Controls: Circular Prev & Next Buttons */}
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
             <button
               type="button"
               onClick={handlePrev}
               aria-label="Previous featured film"
-              className="rounded-full border border-white/20 p-2 text-white/80 hover:border-white hover:text-white hover:bg-white/10 transition cursor-pointer"
+              className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/10 hover:bg-white/25 text-white flex items-center justify-center transition border border-white/10 cursor-pointer"
             >
-              <ArrowLeft size={16} />
+              <ChevronLeft size={16} />
             </button>
             <button
               type="button"
               onClick={handleNext}
               aria-label="Next featured film"
-              className="rounded-full border border-white/20 p-2 text-white/80 hover:border-white hover:text-white hover:bg-white/10 transition cursor-pointer"
+              className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/10 hover:bg-white/25 text-white flex items-center justify-center transition border border-white/10 cursor-pointer"
             >
-              <ArrowRight size={16} />
+              <ChevronRight size={16} />
             </button>
           </div>
 
-          {/* Film Titles Bar with Animated Progress Bar */}
-          <div className="flex flex-1 items-center justify-around gap-2 overflow-x-auto hide-scrollbar">
+          {/* Center Movie Tabs with Dynamic Progress Underline */}
+          <div className="flex flex-1 items-center justify-around gap-2 sm:gap-4 overflow-x-auto hide-scrollbar px-2">
             {featuredHeroSlides.map((slide, idx) => {
               const isActive = idx === currentIndex;
               return (
@@ -555,37 +601,61 @@ function UniversalHeroSlider({
                   key={slide.id}
                   type="button"
                   onClick={() => goToSlide(idx)}
-                  className="group relative flex flex-col items-center px-3 py-1 cursor-pointer transition text-left"
+                  className="group relative flex flex-col items-center px-2 sm:px-3 py-1 cursor-pointer transition text-center shrink-0"
                 >
                   <span
                     className={cn(
                       "text-xs sm:text-sm font-bold tracking-wider uppercase transition-colors whitespace-nowrap",
-                      isActive ? "text-white" : "text-white/60 group-hover:text-white"
+                      isActive ? "text-white font-bold" : "text-white/60 group-hover:text-white",
                     )}
                   >
                     {slide.title}
                   </span>
-                  <span className="hidden sm:inline text-[10px] uppercase tracking-wider text-muted-foreground">
+                  <span
+                    className={cn(
+                      "text-[10px] sm:text-[11px] uppercase tracking-wider transition-colors whitespace-nowrap mt-0.5",
+                      isActive ? "text-white/85 font-medium" : "text-white/40",
+                    )}
+                  >
                     {slide.statusLabel}
                   </span>
 
-                  {/* Active Animated Progress Underline */}
-                  <div className="mt-1.5 h-0.5 w-full rounded-full overflow-hidden bg-white/10">
+                  {/* Active Animated Progress Bar Underline (Matches Image 5) */}
+                  <div className="mt-1.5 h-[2px] w-full rounded-full overflow-hidden bg-white/20">
                     {isActive ? (
                       <div
                         key={`progress-${slide.id}-${progressKey}`}
-                        className="h-full bg-[#1d63ff] rounded-full"
+                        className="h-full bg-[#8B151A] rounded-full"
                         style={{
-                          animation: "heroDockProgress 10s linear",
+                          animation: isPlaying ? "heroDockProgress 10s linear" : "none",
+                          width: isPlaying ? undefined : "100%",
                         }}
                       />
                     ) : (
-                      <div className="h-full w-full bg-transparent group-hover:bg-white/20 transition-colors" />
+                      <div className="h-full w-full bg-transparent group-hover:bg-white/10 transition-colors" />
                     )}
                   </div>
                 </button>
               );
             })}
+          </div>
+
+          {/* Right Pause / Play Circular Button (Matches Image 5) */}
+          <div className="shrink-0 flex items-center">
+            <button
+              type="button"
+              onClick={() => setIsPlaying((val) => !val)}
+              aria-label={
+                isPlaying ? "Pause automatic slide rotation" : "Resume automatic slide rotation"
+              }
+              className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/10 hover:bg-white/25 text-white flex items-center justify-center transition border border-white/10 cursor-pointer"
+            >
+              {isPlaying ? (
+                <Pause size={14} className="fill-current" />
+              ) : (
+                <Play size={14} className="fill-current ml-0.5" />
+              )}
+            </button>
           </div>
         </div>
       </div>
@@ -615,15 +685,15 @@ function InReleaseShelf({
   };
 
   return (
-    <section id="in-release" aria-label="In Release" className="section-pad border-b border-border/40">
+    <section id="in-release" aria-label="In Release" className="section-pad bg-[#0A0A0A]">
       <div className="page-gutter">
-        {/* Universal Pictures "In Release" Top Header Row */}
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between border-b border-white/10 pb-6">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between pb-6">
           <div>
-            <p className="eyebrow text-[#1d63ff]">Theatrical & Global Streaming</p>
-            <h2 className="font-display text-4xl sm:text-6xl md:text-7xl uppercase text-foreground leading-none">
-              In Release
-            </h2>
+            <div className="flex items-center gap-2 mb-2">
+              <span className="h-2 w-2 rounded-full bg-[#8B151A]" />
+              <p className="eyebrow mb-0">Theatrical & Global Streaming</p>
+            </div>
+            <h2 className="section-title">In Release</h2>
           </div>
 
           {/* Carousel Arrows */}
@@ -632,75 +702,69 @@ function InReleaseShelf({
               type="button"
               onClick={scrollLeft}
               aria-label="Scroll films left"
-              className="rounded-full border border-white/20 bg-card p-3 text-foreground hover:border-white hover:bg-white/10 transition cursor-pointer"
+              className="btn-pill-outline p-3 text-[#F5F5F7] cursor-pointer"
             >
-              <ArrowLeft size={18} />
+              <ChevronLeft size={18} />
             </button>
             <button
               type="button"
               onClick={scrollRight}
               aria-label="Scroll films right"
-              className="rounded-full border border-white/20 bg-card p-3 text-foreground hover:border-white hover:bg-white/10 transition cursor-pointer"
+              className="btn-pill-outline p-3 text-[#F5F5F7] cursor-pointer"
             >
-              <ArrowRight size={18} />
+              <ChevronRight size={18} />
             </button>
           </div>
         </div>
 
-        {/* Blue Progress Bar Accent (Exact Universal Screenshot) */}
-        <div className="h-1 w-full bg-white/10 mt-2 rounded-full overflow-hidden">
-          <div className="h-full w-1/4 bg-[#1d63ff] rounded-full" />
-        </div>
-
-        {/* Horizontal Film Poster Carousel */}
+        {/* Horizontal Film Poster Carousel - Borderless, Clean Rounded-xl Cards (Matching Image 2 Reference) */}
         <div
           ref={scrollRef}
-          className="mt-8 flex gap-6 overflow-x-auto pb-6 pt-2 hide-scrollbar scroll-smooth"
+          className="mt-6 flex gap-6 overflow-x-auto pb-6 pt-2 hide-scrollbar scroll-smooth"
         >
           {inReleaseFilms.map((film) => (
             <div
               key={film.id}
               className="group flex flex-col w-[260px] sm:w-[290px] md:w-[320px] shrink-0"
             >
-              {/* 2:3 Vertical Poster Card with Hover Zoom */}
+              {/* Borderless Rounded Image Card (Matching Image 2) */}
               <div
                 onClick={() => onInspectFilm(film)}
-                className="relative aspect-[2/3] w-full overflow-hidden rounded-xl border border-white/10 bg-black shadow-lg cursor-pointer transition-transform duration-300 group-hover:scale-[1.03] group-hover:border-white/30"
+                className="relative aspect-[2/3] w-full overflow-hidden rounded-2xl bg-[#141416] shadow-xl cursor-pointer transition-transform duration-500 ease-out group-hover:scale-[1.02]"
               >
                 <img
                   src={film.image}
                   alt={film.alt}
                   loading="lazy"
-                  className="h-full w-full object-cover transition-opacity duration-300"
+                  className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-80 group-hover:opacity-60 transition-opacity" />
-                <span className="absolute top-3 right-3 rounded-full bg-black/70 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-white backdrop-blur-md border border-white/10">
+                <span className="absolute top-3 right-3 rounded-full bg-black/70 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-[#F5F5F7] backdrop-blur-md">
                   {film.year}
                 </span>
               </div>
 
-              {/* Title with Right Arrow */}
-              <button
-                type="button"
-                onClick={() => onInspectFilm(film)}
-                className="mt-4 text-left font-display text-xl uppercase tracking-wider text-foreground hover:text-[#1d63ff] transition-colors flex items-center gap-1.5 cursor-pointer"
-              >
-                <span>{film.title}</span>
-                <ArrowRight size={16} className="text-[#1d63ff]" />
-              </button>
+              {/* Title & Info Below Card - Clean Plain Text on Background (Matching Image 2) */}
+              <div className="mt-3.5">
+                <button
+                  type="button"
+                  onClick={() => onInspectFilm(film)}
+                  className="text-left font-display text-xl uppercase tracking-wider text-[#F5F5F7] hover:text-[#8B151A] transition-colors flex items-center gap-1.5 cursor-pointer"
+                >
+                  <span>{film.title}</span>
+                  <ArrowRight size={16} className="text-[#8B151A]" />
+                </button>
 
-              <p className="mt-1 text-xs text-muted-foreground line-clamp-1">
-                {film.tagline}
-              </p>
+                <p className="mt-1 text-xs text-[#8E8E93] line-clamp-1">{film.tagline}</p>
+              </div>
 
-              {/* Action Buttons */}
+              {/* Action Buttons: 50px Fully Rounded Pills */}
               <div className="mt-4 flex items-center gap-2">
                 <button
                   type="button"
                   onClick={() => onInspectFilm(film)}
                   className={cn(
-                    "rounded-full bg-[#1d63ff] hover:bg-[#1550d4] text-white py-2.5 text-xs font-bold uppercase tracking-wider transition-all text-center cursor-pointer shadow-md shadow-blue-500/20",
-                    film.videoId ? "flex-1" : "w-full"
+                    "btn-pill-crimson py-2.5 text-xs font-bold uppercase tracking-wider text-center cursor-pointer shadow-md",
+                    film.videoId ? "flex-1" : "w-full",
                   )}
                 >
                   Explore Film
@@ -710,9 +774,9 @@ function InReleaseShelf({
                   <button
                     type="button"
                     onClick={() => onPlayVideo(film.videoId!, film.title, "Official Reel")}
-                    className="flex-1 rounded-full border border-white/30 bg-black/50 hover:bg-white/10 text-white py-2.5 text-xs font-bold uppercase tracking-wider transition-all text-center cursor-pointer flex items-center justify-center gap-1.5"
+                    className="btn-pill-outline flex-1 py-2.5 text-xs font-bold uppercase tracking-wider text-center cursor-pointer flex items-center justify-center gap-1.5"
                   >
-                    <Play size={12} className="fill-current text-[#1d63ff]" /> Trailer
+                    <Play size={12} className="fill-current text-[#8B151A]" /> Trailer
                   </button>
                 )}
               </div>
@@ -724,6 +788,7 @@ function InReleaseShelf({
   );
 }
 
+// Coming Soon Section: The Book of Exodus with Smooth Multi-Column Marquee, Left Edge Fade, and Borderless Cards (Matching Image 2 Reference)
 function ComingSoonSection({
   onPlayVideo,
   onInspectFilm,
@@ -731,172 +796,228 @@ function ComingSoonSection({
   onPlayVideo: (id: string, title: string, category?: string, startSeconds?: number) => void;
   onInspectFilm: (filmId: string) => void;
 }) {
+  const marqueeWrapperRef = useRef<HTMLDivElement>(null);
+
+  // Smooth hover speed slowdown: gently decelerates to 22% speed without freezing dead
+  const handleMarqueeEnter = () => {
+    if (!marqueeWrapperRef.current) return;
+    try {
+      const anims = marqueeWrapperRef.current.getAnimations({ subtree: true });
+      anims.forEach((anim) => {
+        anim.playbackRate = 0.22;
+      });
+    } catch {
+      // Graceful fallback
+    }
+  };
+
+  const handleMarqueeLeave = () => {
+    if (!marqueeWrapperRef.current) return;
+    try {
+      const anims = marqueeWrapperRef.current.getAnimations({ subtree: true });
+      anims.forEach((anim) => {
+        anim.playbackRate = 1.0;
+      });
+    } catch {
+      // Graceful fallback
+    }
+  };
+
+  // Strictly the 3 user-uploaded Exodus posters ONLY (NO Genesis, NO random images)
+  const exodusPostersOnly = [
+    {
+      id: "exodus-parting-sea",
+      title: "The Book of Exodus",
+      subtitle: "Deliverance Through the Parting Waters",
+      image: "/images/posters/exodus-parting-sea.jpg",
+      alt: "The Book of Exodus - Moses at the Parting of the Red Sea",
+    },
+    {
+      id: "exodus-tablets",
+      title: "The Ten Commandments",
+      subtitle: "The Divine Law at Mount Sinai",
+      image: "/images/posters/exodus-tablets.jpg",
+      alt: "The Book of Exodus - Moses Holding the Ten Commandments Tablets",
+    },
+    {
+      id: "exodus-staff",
+      title: "The Call of the Prophet",
+      subtitle: "Unwavering Faith in the Desert",
+      image: "/images/posters/exodus-staff.jpg",
+      alt: "The Book of Exodus - Moses with Staff Against the Storm",
+    },
+  ];
+
+  // Column 1 marquee sequence (only Exodus posters, duplicated for infinite seamless vertical loop)
+  const columnOnePosters = [
+    exodusPostersOnly[0]!,
+    exodusPostersOnly[1]!,
+    exodusPostersOnly[2]!,
+    exodusPostersOnly[0]!,
+    exodusPostersOnly[1]!,
+    exodusPostersOnly[2]!,
+  ];
+
+  // Column 2 marquee sequence (staggered start for dynamic layout, strictly Exodus posters only)
+  const columnTwoPosters = [
+    exodusPostersOnly[1]!,
+    exodusPostersOnly[2]!,
+    exodusPostersOnly[0]!,
+    exodusPostersOnly[1]!,
+    exodusPostersOnly[2]!,
+    exodusPostersOnly[0]!,
+  ];
+
   return (
     <section
       id="coming-soon"
       aria-label="Coming Soon"
-      className="py-14 md:py-20 bg-[#000000] border-b border-white/10 relative overflow-hidden"
+      className="py-16 md:py-24 bg-[#0A0A0A] relative overflow-hidden"
     >
-      {/* Subtle Studio Backdrop with Deep Black Gradient Fade */}
-      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden opacity-20">
-        <img
-          src={genesisHero}
-          alt=""
-          className="h-full w-full object-cover object-center filter grayscale"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/90 to-black/75" />
-      </div>
-
       <div className="page-gutter relative z-10">
-        {/* Top Progress Track Bar Matching Universal Style */}
-        <div className="flex items-center justify-between gap-6 mb-8 md:mb-12">
-          <div className="relative h-[2px] flex-1 bg-white/15 overflow-hidden">
-            <div className="absolute top-0 bottom-0 left-0 w-32 sm:w-48 bg-[#0055ff]" />
-          </div>
-          <span className="text-[11px] font-bold uppercase tracking-[0.25em] text-[#1d63ff] shrink-0">
-            In Production · 2026
-          </span>
-        </div>
-
-        {/* Studio Showcase Layout: Left Title & Link, Right Centerpiece Poster & Spec */}
-        <div className="grid gap-10 lg:grid-cols-[340px_1fr] xl:grid-cols-[380px_1fr] items-start">
-          {/* Left Column: Huge 2-Line Coming Soon Title & Partnership Note */}
+        {/* Layout Inspired by Apple TV+ & Modern Portfolio (Matching Image 2 Reference) */}
+        <div className="grid gap-12 lg:grid-cols-[420px_1fr] xl:grid-cols-[460px_1fr] items-center">
+          {/* Left Column: Bold Typography & Simple Bold Text Stats (NO BOXES, NO BORDERS) */}
           <div className="flex flex-col items-start">
-            <h2 className="font-display text-5xl sm:text-7xl lg:text-8xl font-black uppercase text-white leading-[0.88] tracking-tight">
-              Coming
+            <div className="flex items-center gap-3 mb-4">
+              <span className="h-[2px] w-8 bg-[#8B151A]" />
+              <span className="font-display text-lg sm:text-xl tracking-[0.25em] uppercase text-[#8B151A] font-bold">
+                COMING SOON · 2027
+              </span>
+            </div>
+
+            <h2 className="font-display text-5xl sm:text-7xl lg:text-8xl font-black uppercase text-[#F5F5F7] leading-[0.88] tracking-tight">
+              THE BOOK OF
               <br />
-              Soon
+              EXODUS
             </h2>
 
-            <a
-              href={genesisDetails.watchChaptersUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="mt-6 inline-flex items-center gap-1.5 text-xs sm:text-[13px] font-bold uppercase tracking-wider text-white/80 hover:text-white transition-colors cursor-pointer"
-            >
-              EXPLORE NRIM CHAPTERS ONLINE <ChevronRight size={14} />
-            </a>
-
-            <p className="mt-6 text-sm leading-relaxed text-neutral-400 max-w-sm">
-              Nations Reach International Missions (NRIM) in strategic co-production with Fusion Edge
-              Media is developing the world&apos;s first fully AI-generated 90-minute visual Bible feature
-              film.
+            <p className="mt-3 font-serif italic text-base sm:text-lg text-[#F5F5F7]/90">
+              {exodusDetails.headline}
             </p>
-          </div>
 
-          {/* Right Column: Genesis Centerpiece Feature */}
-          <div className="flex flex-col md:flex-row gap-8 lg:gap-10 items-start">
-            {/* Theatrical Portrait Poster (2:3 Aspect Ratio) with Universal-style Title below */}
-            <div className="w-full sm:w-[280px] md:w-[320px] shrink-0 group">
-              <div
-                onClick={() =>
-                  onPlayVideo(
-                    genesisDetails.aiShowreelId,
-                    "The Book of Genesis",
-                    "In Production",
-                    genesisDetails.startSeconds
-                  )
-                }
-                className="relative aspect-[2/3] w-full overflow-hidden rounded-[4px] border border-white/15 bg-black shadow-2xl cursor-pointer transition-transform duration-300 ease-out group-hover:scale-[1.02]"
-              >
-                <img
-                  src={genesisDetails.posterImage}
-                  alt="The Book of Genesis Movie Poster"
-                  loading="lazy"
-                  className="h-full w-full object-cover object-center"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-40 group-hover:opacity-10 transition-opacity" />
-              </div>
+            <p className="mt-5 text-sm sm:text-base leading-relaxed text-[#8E8E93] max-w-md">
+              {exodusDetails.description}
+            </p>
 
-              {/* Exact Universal-style bold title + arrow below poster */}
+            {/* Plain Bold Text Stats directly on background - NO BOXES, NO BORDERS (Per User Image 1) */}
+            <div className="mt-8 grid grid-cols-3 gap-6 sm:gap-8 w-full max-w-xl">
+              {exodusDetails.stats.map((stat) => (
+                <div key={stat.label}>
+                  <p className="font-display text-3xl sm:text-4xl lg:text-5xl uppercase text-[#F5F5F7] font-bold tracking-tight">
+                    {stat.value}
+                  </p>
+                  <p className="text-xs sm:text-sm text-[#8E8E93] uppercase tracking-wider mt-1 font-semibold">
+                    {stat.label}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            {/* Fully Rounded 50px Action Pills */}
+            <div className="mt-8 flex flex-wrap gap-4">
               <button
                 type="button"
                 onClick={() =>
                   onPlayVideo(
-                    genesisDetails.aiShowreelId,
-                    "The Book of Genesis",
-                    "In Production",
-                    genesisDetails.startSeconds
+                    exodusDetails.videoId,
+                    "The Book of Exodus",
+                    "2027 Theatrical",
+                    exodusDetails.startSeconds,
                   )
                 }
-                className="mt-3.5 flex items-center gap-1.5 text-base sm:text-lg font-bold uppercase tracking-wider text-white hover:text-white/80 transition-colors cursor-pointer text-left"
+                className="btn-pill-crimson px-8 py-3.5 text-xs font-bold uppercase tracking-wider flex items-center gap-2 cursor-pointer shadow-lg hover:scale-105 active:scale-95"
               >
-                <span>THE BOOK OF GENESIS</span>
-                <ArrowRight
-                  size={16}
-                  className="shrink-0 transition-transform duration-300 group-hover:translate-x-1"
-                />
+                <Play size={14} className="fill-current" /> Watch Teaser
               </button>
+
+              <a
+                href={exodusDetails.watchChaptersUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="btn-pill-outline px-8 py-3.5 text-xs font-bold uppercase tracking-wider flex items-center gap-2 cursor-pointer hover:scale-105 active:scale-95"
+              >
+                Explore NRIM Visual Bible <ExternalLink size={14} />
+              </a>
             </div>
+          </div>
 
-            {/* Feature Description & Clean Theatrical Actions */}
-            <div className="flex-1 flex flex-col justify-between self-stretch">
-              <div>
-                <div className="flex items-center gap-3">
-                  <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#1d63ff]">
-                    NRIM Visual Bible Project
-                  </span>
-                  <span className="h-1 w-1 rounded-full bg-white/30" />
-                  <span className="text-xs uppercase tracking-wider text-neutral-400">
-                    Feature Film
-                  </span>
-                </div>
+          {/* Right Column: Multi-Column Smooth Scroll Posters - BORDERLESS ROUNDED CARDS (Matching Image 2 Reference) */}
+          <div
+            ref={marqueeWrapperRef}
+            onPointerEnter={handleMarqueeEnter}
+            onPointerLeave={handleMarqueeLeave}
+            className="relative w-full overflow-hidden poster-fade-mask"
+          >
+            {/* 3D Depth Atmospheric Fade on the left edge toward the text */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-24 z-20 hidden md:block"
+              style={{
+                background:
+                  "linear-gradient(to right, #0A0A0A 0%, rgba(10, 10, 10, 0.7) 40%, transparent 100%)",
+              }}
+            />
 
-                <h3 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl uppercase tracking-tight text-white leading-none">
-                  {genesisDetails.title}
-                </h3>
-
-                <p className="mt-2 text-sm sm:text-base font-bold uppercase tracking-wider text-neutral-300">
-                  {genesisDetails.headline}
-                </p>
-
-                <p className="mt-4 text-sm sm:text-base leading-relaxed text-neutral-400">
-                  {genesisDetails.description}
-                </p>
-
-                {/* Clean Studio Spec Grid - Sharp dividers, NO neon badges */}
-                <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-4 border-y border-white/10 py-5">
-                  {genesisDetails.stats.map((stat) => (
-                    <div key={stat.label}>
-                      <p className="font-display text-2xl sm:text-3xl uppercase text-white font-bold">
-                        {stat.value}
-                      </p>
-                      <p className="text-[11px] text-neutral-500 uppercase tracking-wider mt-0.5">
-                        {stat.label}
+            <div className="grid grid-cols-2 gap-5 sm:gap-7 h-[580px] sm:h-[660px] overflow-hidden py-3">
+              {/* Column 1: Smooth Infinite Scroll Upwards */}
+              <div className="flex flex-col gap-6 sm:gap-8 animate-marquee-up">
+                {columnOnePosters.map((poster, idx) => (
+                  <div
+                    key={`col1-${poster.id}-${idx}`}
+                    onClick={() => onInspectFilm("exodus")}
+                    className="group flex flex-col shrink-0 w-full cursor-pointer"
+                  >
+                    {/* Borderless Rounded Image Card (Matching Image 2) */}
+                    <div className="relative aspect-[3/4] w-full overflow-hidden rounded-2xl bg-[#141416] shadow-2xl transition-transform duration-500 ease-out group-hover:scale-[1.02]">
+                      <img
+                        src={poster.image}
+                        alt={poster.alt}
+                        loading="lazy"
+                        className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                      />
+                    </div>
+                    {/* Clean Plain Text Below Card (Matching Image 2: "Aster Finance", "Field Notes") */}
+                    <div className="mt-3.5 px-0.5">
+                      <h3 className="text-base sm:text-lg font-medium text-[#F5F5F7] tracking-tight transition-colors group-hover:text-[#8B151A]">
+                        {poster.title}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-[#8E8E93] mt-0.5 font-normal">
+                        {poster.subtitle}
                       </p>
                     </div>
-                  ))}
-                </div>
+                  </div>
+                ))}
               </div>
 
-              {/* Clean Boxy Studio Action Buttons - High Contrast */}
-              <div className="mt-8 flex flex-wrap gap-4">
-                <a
-                  href={genesisDetails.watchChaptersUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  style={{ color: "#000000" }}
-                  className="rounded-[2px] bg-white text-black hover:bg-neutral-200 px-7 py-3.5 text-xs font-black uppercase tracking-wider transition-colors flex items-center gap-2 cursor-pointer shadow-md"
-                >
-                  <span style={{ color: "#000000" }}>Watch Chapters Online</span>
-                  <ExternalLink size={14} style={{ color: "#000000" }} />
-                </a>
-
-                <button
-                  type="button"
-                  onClick={() =>
-                    onPlayVideo(
-                      genesisDetails.aiShowreelId,
-                      "The Book of Genesis",
-                      "In Production",
-                      genesisDetails.startSeconds
-                    )
-                  }
-                  className="rounded-[2px] border border-white/30 bg-black/60 hover:bg-white/10 text-white px-7 py-3.5 text-xs font-bold uppercase tracking-wider transition-colors flex items-center gap-2 cursor-pointer"
-                >
-                  <Play size={14} className="fill-current text-[#1d63ff]" />
-                  Watch Teaser
-                </button>
+              {/* Column 2: Smooth Infinite Scroll Downwards */}
+              <div className="flex flex-col gap-6 sm:gap-8 animate-marquee-down">
+                {columnTwoPosters.map((poster, idx) => (
+                  <div
+                    key={`col2-${poster.id}-${idx}`}
+                    onClick={() => onInspectFilm("exodus")}
+                    className="group flex flex-col shrink-0 w-full cursor-pointer"
+                  >
+                    {/* Borderless Rounded Image Card (Matching Image 2) */}
+                    <div className="relative aspect-[3/4] w-full overflow-hidden rounded-2xl bg-[#141416] shadow-2xl transition-transform duration-500 ease-out group-hover:scale-[1.02]">
+                      <img
+                        src={poster.image}
+                        alt={poster.alt}
+                        loading="lazy"
+                        className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                      />
+                    </div>
+                    {/* Clean Plain Text Below Card (Matching Image 2) */}
+                    <div className="mt-3.5 px-0.5">
+                      <h3 className="text-base sm:text-lg font-medium text-[#F5F5F7] tracking-tight transition-colors group-hover:text-[#8B151A]">
+                        {poster.title}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-[#8E8E93] mt-0.5 font-normal">
+                        {poster.subtitle}
+                      </p>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -906,32 +1027,33 @@ function ComingSoonSection({
   );
 }
 
-function AmericanFilmAcademySlate({
-  onInspectFilm,
-}: {
-  onInspectFilm: (film: FilmWork) => void;
-}) {
+function AmericanFilmAcademySlate({ onInspectFilm }: { onInspectFilm: (film: FilmWork) => void }) {
   return (
-    <section id="afa-slate" aria-label="American Film Academy Slate" className="section-pad border-b border-border/40">
+    <section
+      id="afa-slate"
+      aria-label="American Film Academy Slate"
+      className="section-pad bg-[#0A0A0A]"
+    >
       <div className="page-gutter">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between border-b border-white/10 pb-6">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between pb-6">
           <div>
-            <p className="eyebrow text-[#1d63ff]">American Film Academy & Indie Productions</p>
-            <h2 className="font-display text-4xl sm:text-6xl md:text-7xl uppercase text-foreground leading-none">
-              AFA Production Slate
-            </h2>
+            <div className="flex items-center gap-2 mb-2">
+              <span className="h-2 w-2 rounded-full bg-[#8B151A]" />
+              <p className="eyebrow mb-0">American Film Academy & Indie Productions</p>
+            </div>
+            <h2 className="section-title">AFA Slate</h2>
           </div>
           <a
             href="https://afa.education/"
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-[#1d63ff] hover:text-white transition-colors"
+            className="btn-pill-outline inline-flex items-center gap-2 px-5 py-2.5 text-xs font-bold uppercase tracking-[0.2em]"
           >
             Visit AFA Education <ExternalLink size={14} />
           </a>
         </div>
 
-        {/* 8 Film Poster Cards Grid */}
+        {/* 8 Film Poster Cards Grid: Borderless Rounded-2xl Cards (Matching Image 2 Reference) */}
         <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
           {afaFilms.map((film) => (
             <div
@@ -939,30 +1061,28 @@ function AmericanFilmAcademySlate({
               onClick={() => onInspectFilm(film)}
               className="group flex flex-col cursor-pointer"
             >
-              <div className="relative aspect-[2/3] w-full overflow-hidden rounded-xl border border-white/10 bg-black shadow-lg transition-transform duration-300 group-hover:scale-[1.03] group-hover:border-white/30">
+              <div className="relative aspect-[2/3] w-full overflow-hidden rounded-2xl bg-[#141416] shadow-xl transition-transform duration-500 ease-out group-hover:scale-[1.02]">
                 <img
                   src={film.image}
                   alt={film.alt}
                   loading="lazy"
-                  className="h-full w-full object-cover transition-opacity duration-300"
+                  className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-75 group-hover:opacity-50 transition-opacity" />
-                <span className="absolute top-3 right-3 rounded-full bg-black/70 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white backdrop-blur-md border border-white/10">
+                <span className="absolute top-3 right-3 rounded-full bg-black/70 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[#F5F5F7] backdrop-blur-md">
                   {film.year}
                 </span>
               </div>
 
-              <div className="mt-3 flex items-center justify-between">
-                <h4 className="font-display text-lg uppercase tracking-wider text-foreground group-hover:text-[#1d63ff] transition-colors">
+              <div className="mt-3.5">
+                <h4 className="font-display text-lg uppercase tracking-wider text-[#F5F5F7] group-hover:text-[#8B151A] transition-colors">
                   {film.title} →
                 </h4>
+                <p className="text-xs text-[#8E8E93] line-clamp-1 mt-0.5">{film.tagline}</p>
               </div>
-
-              <p className="text-xs text-muted-foreground line-clamp-1">{film.tagline}</p>
 
               <button
                 type="button"
-                className="mt-3 rounded-full border border-white/20 bg-card py-2 text-[11px] font-bold uppercase tracking-wider text-muted-foreground group-hover:border-[#1d63ff] group-hover:text-white transition-all text-center cursor-pointer"
+                className="btn-pill-outline mt-3 py-2 text-[11px] font-bold uppercase tracking-wider text-center cursor-pointer"
               >
                 Explore Film
               </button>
@@ -976,27 +1096,29 @@ function AmericanFilmAcademySlate({
 
 function StudioDivisionsSection() {
   return (
-    <section id="divisions" aria-label="Studio Divisions" className="section-pad border-b border-border/40">
+    <section id="divisions" aria-label="Studio Divisions" className="section-pad bg-[#0A0A0A]">
       <div className="page-gutter">
-        <p className="eyebrow text-[#1d63ff]">Global Ecosystem</p>
-        <h2 className="font-display text-4xl sm:text-6xl md:text-7xl uppercase text-foreground leading-none">
-          Studio Divisions
-        </h2>
+        <div className="flex items-center gap-2 mb-2">
+          <span className="h-2 w-2 rounded-full bg-[#8B151A]" />
+          <p className="eyebrow mb-0">Global Ecosystem</p>
+        </div>
+        <h2 className="section-title">Studio Divisions</h2>
 
+        {/* Clean Rounded Cards with NO harsh borders (Matching Image 2 Reference) */}
         <div className="mt-10 grid gap-6 md:grid-cols-3">
           {studioDivisions.map((div) => (
             <div
               key={div.title}
-              className="flex flex-col justify-between rounded-2xl border border-white/15 bg-card/60 p-6 md:p-8 backdrop-blur-xl transition hover:border-[#1d63ff]/60 group"
+              className="flex flex-col justify-between rounded-2xl bg-[#141416] p-7 sm:p-8 shadow-xl transition duration-300 hover:bg-[#1C1C1E] group"
             >
               <div>
-                {/* Authentic Division Brand Logo Header */}
+                {/* Division Brand Logo */}
                 <div className="h-16 sm:h-20 flex items-center justify-start mb-6">
                   {div.title === "American Film Academy" ? (
                     <img
-                      src="/images/logos/afa-logo.png"
+                      src="/images/logos/afa-logo-v2.png"
                       alt={`${div.title} Logo`}
-                      className="h-16 sm:h-20 w-auto object-contain max-w-[220px] transition-transform duration-300 group-hover:scale-105"
+                      className="h-16 sm:h-20 w-auto object-contain max-w-[220px]"
                       width="240"
                       height="80"
                     />
@@ -1004,7 +1126,7 @@ function StudioDivisionsSection() {
                     <img
                       src={div.logo}
                       alt={`${div.title} Logo`}
-                      className="h-16 sm:h-20 w-auto object-contain max-w-[140px] drop-shadow-[0_0_15px_rgba(29,99,255,0.3)] transition-transform duration-300 group-hover:scale-105"
+                      className="h-16 sm:h-20 w-auto object-contain max-w-[140px]"
                       width="140"
                       height="80"
                     />
@@ -1012,26 +1134,22 @@ function StudioDivisionsSection() {
                     <img
                       src={div.logo}
                       alt={`${div.title} Logo`}
-                      className="h-16 sm:h-20 w-auto object-contain max-w-[220px] transition-transform duration-300 group-hover:scale-105"
+                      className="h-16 sm:h-20 w-auto object-contain max-w-[220px]"
                       width="240"
                       height="80"
                     />
                   )}
                 </div>
 
-                <span className="rounded-full bg-[#1d63ff]/20 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-[#1d63ff]">
+                <span className="rounded-full bg-[#8B151A]/20 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-[#F5F5F7]">
                   {div.badge}
                 </span>
 
-                <h3 className="mt-4 font-display text-2xl uppercase tracking-wider text-foreground sm:text-3xl">
+                <h3 className="mt-4 font-display text-2xl uppercase tracking-wider text-[#F5F5F7] sm:text-3xl">
                   {div.title}
                 </h3>
-                <p className="mt-1 text-xs font-bold uppercase tracking-wider text-foreground/80">
-                  {div.tagline}
-                </p>
-                <p className="mt-4 text-xs leading-6 text-muted-foreground">
-                  {div.description}
-                </p>
+                <p className="mt-1 font-serif italic text-xs text-[#F5F5F7]/90">{div.tagline}</p>
+                <p className="mt-4 text-xs leading-6 text-[#8E8E93]">{div.description}</p>
               </div>
 
               <div className="mt-6 pt-6 border-t border-white/10">
@@ -1039,7 +1157,7 @@ function StudioDivisionsSection() {
                   href={div.action.href}
                   target={div.action.external ? "_blank" : undefined}
                   rel={div.action.external ? "noreferrer" : undefined}
-                  className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-[#1d63ff] hover:text-white transition-colors"
+                  className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-[#8B151A] hover:text-[#F5F5F7] transition-colors"
                 >
                   {div.action.label} <ArrowRight size={14} />
                 </a>
@@ -1052,41 +1170,278 @@ function StudioDivisionsSection() {
   );
 }
 
+export interface StudioInquiry {
+  id: string;
+  name: string;
+  email: string;
+  company?: string;
+  inquiryType: string;
+  message: string;
+  createdAt: string;
+}
+
+const INQUIRIES_STORAGE_KEY = "fusion_edge_inquiries";
+
+function loadStoredInquiries(): StudioInquiry[] {
+  if (typeof window === "undefined") return [];
+  try {
+    const raw = localStorage.getItem(INQUIRIES_STORAGE_KEY);
+    return raw ? (JSON.parse(raw) as StudioInquiry[]) : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveStoredInquiry(inquiry: Omit<StudioInquiry, "id" | "createdAt">): StudioInquiry {
+  const newEntry: StudioInquiry = {
+    ...inquiry,
+    id: `inq_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`,
+    createdAt: new Date().toISOString(),
+  };
+  if (typeof window !== "undefined") {
+    try {
+      const existing = loadStoredInquiries();
+      const updated = [newEntry, ...existing];
+      localStorage.setItem(INQUIRIES_STORAGE_KEY, JSON.stringify(updated));
+    } catch (e) {
+      console.error("Failed to save inquiry to storage", e);
+    }
+  }
+  return newEntry;
+}
+
+function exportInquiriesCSV(inquiries: StudioInquiry[]) {
+  if (typeof window === "undefined" || inquiries.length === 0) return;
+  const headers = ["ID", "Timestamp", "Name", "Email", "Company", "Inquiry Type", "Message"];
+  const rows = inquiries.map((inq) => [
+    `"${inq.id}"`,
+    `"${new Date(inq.createdAt).toLocaleString()}"`,
+    `"${(inq.name || "").replace(/"/g, '""')}"`,
+    `"${(inq.email || "").replace(/"/g, '""')}"`,
+    `"${(inq.company || "").replace(/"/g, '""')}"`,
+    `"${(inq.inquiryType || "").replace(/"/g, '""')}"`,
+    `"${(inq.message || "").replace(/"/g, '""')}"`,
+  ]);
+  const csvContent = "\uFEFF" + [headers.join(","), ...rows.map((r) => r.join(","))].join("\n");
+  const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `fusion-edge-inquiries-${new Date().toISOString().slice(0, 10)}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function exportInquiriesJSON(inquiries: StudioInquiry[]) {
+  if (typeof window === "undefined" || inquiries.length === 0) return;
+  const blob = new Blob([JSON.stringify(inquiries, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `fusion-edge-inquiries-${new Date().toISOString().slice(0, 10)}.json`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
 function ContactSection() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    company: "",
+    inquiryType: "Feature Film Production",
+    message: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) return;
+
+    setIsSubmitting(true);
+    setTimeout(() => {
+      saveStoredInquiry(formData);
+      setIsSubmitting(false);
+      setSubmitted(true);
+      setFormData({
+        name: "",
+        email: "",
+        company: "",
+        inquiryType: "Feature Film Production",
+        message: "",
+      });
+    }, 350);
+  };
+
   return (
-    <section id="contact" aria-label="Studio Contact" className="section-pad border-b border-border/40">
+    <section id="contact" aria-label="Studio Contact" className="section-pad bg-[#0A0A0A]">
       <div className="page-gutter">
-        <div className="rounded-3xl border border-white/15 bg-card/70 p-8 sm:p-12 md:p-16 backdrop-blur-2xl text-center relative overflow-hidden">
-          <div className="absolute -left-20 -bottom-20 h-80 w-80 rounded-full bg-[#1d63ff]/20 blur-3xl pointer-events-none" />
+        <div className="rounded-3xl bg-[#141416] p-8 sm:p-12 md:p-16 relative overflow-hidden shadow-2xl border border-white/5">
+          <div className="max-w-2xl mx-auto text-center">
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <span className="h-2 w-2 rounded-full bg-[#8B151A]" />
+              <p className="eyebrow mb-0">Connect Continents</p>
+            </div>
+            <h2 className="font-display text-5xl sm:text-7xl md:text-8xl uppercase text-[#F5F5F7] leading-[0.88]">
+              Let’s Make
+              <br />
+              The Next One.
+            </h2>
 
-          <p className="eyebrow text-[#1d63ff]">Connect Continents</p>
-          <h2 className="font-display text-4xl sm:text-6xl md:text-7xl uppercase text-foreground leading-[0.88]">
-            Let’s Make
-            <br />
-            The Next One.
-          </h2>
+            <p className="mt-4 font-serif italic text-base sm:text-lg leading-relaxed text-[#8E8E93]">
+              Submit your feature production, co-production, or worldwide distribution project brief to Fusion Edge Media.
+            </p>
+          </div>
 
-          <p className="mx-auto mt-6 max-w-xl text-base sm:text-lg leading-relaxed text-muted-foreground">
-            Bring your feature production, co-production, or worldwide distribution conversation to
-            Fusion Edge Media.
-          </p>
+          {/* Form / Confirmation Container */}
+          <div className="max-w-xl mx-auto mt-10">
+            {submitted ? (
+              <div className="rounded-2xl bg-black/60 border border-white/10 p-8 text-center animate-reveal">
+                <div className="w-14 h-14 rounded-full bg-[#8B151A]/20 text-[#8B151A] mx-auto flex items-center justify-center mb-4">
+                  <CheckCircle2 size={32} />
+                </div>
+                <h3 className="font-display text-3xl uppercase tracking-wider text-[#F5F5F7]">
+                  Project Brief Received
+                </h3>
+                <p className="mt-2 text-sm text-[#8E8E93] leading-relaxed">
+                  Your inquiry has been encrypted and recorded into the studio executive vault. A senior producer will review and reach out to your team promptly.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setSubmitted(false)}
+                  className="btn-pill-outline mt-6 px-6 py-2.5 text-xs font-bold uppercase tracking-wider cursor-pointer"
+                >
+                  Send Another Inquiry
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="flex flex-col gap-4 text-left">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label
+                      htmlFor="contact-name"
+                      className="block text-xs font-bold uppercase tracking-wider text-[#F5F5F7]/90 mb-1.5"
+                    >
+                      Full Name <span className="text-[#8B151A]">*</span>
+                    </label>
+                    <input
+                      id="contact-name"
+                      type="text"
+                      required
+                      autoComplete="name"
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      placeholder="Producer / Director Name"
+                      className="w-full rounded-xl bg-black/70 border border-white/15 px-4 py-3 text-sm text-[#F5F5F7] placeholder:text-[#8E8E93]/60 focus:border-[#8B151A] focus:outline-none transition-colors"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="contact-email"
+                      className="block text-xs font-bold uppercase tracking-wider text-[#F5F5F7]/90 mb-1.5"
+                    >
+                      Business Email <span className="text-[#8B151A]">*</span>
+                    </label>
+                    <input
+                      id="contact-email"
+                      type="email"
+                      required
+                      autoComplete="email"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      placeholder="name@production.com"
+                      className="w-full rounded-xl bg-black/70 border border-white/15 px-4 py-3 text-sm text-[#F5F5F7] placeholder:text-[#8E8E93]/60 focus:border-[#8B151A] focus:outline-none transition-colors"
+                    />
+                  </div>
+                </div>
 
-          <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <a
-              href="tel:+18189628062"
-              className="rounded-full bg-[#1d63ff] hover:bg-[#1550d4] text-white px-8 py-4 text-xs sm:text-sm font-bold uppercase tracking-wider transition-all shadow-lg shadow-blue-500/30 flex items-center gap-2"
-            >
-              Call Studio: +1 818 962 8062 <ArrowRight size={16} />
-            </a>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label
+                      htmlFor="contact-company"
+                      className="block text-xs font-bold uppercase tracking-wider text-[#F5F5F7]/90 mb-1.5"
+                    >
+                      Production Entity / Agency
+                    </label>
+                    <input
+                      id="contact-company"
+                      type="text"
+                      autoComplete="organization"
+                      value={formData.company}
+                      onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                      placeholder="Studio or Representation"
+                      className="w-full rounded-xl bg-black/70 border border-white/15 px-4 py-3 text-sm text-[#F5F5F7] placeholder:text-[#8E8E93]/60 focus:border-[#8B151A] focus:outline-none transition-colors"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="contact-type"
+                      className="block text-xs font-bold uppercase tracking-wider text-[#F5F5F7]/90 mb-1.5"
+                    >
+                      Inquiry Nature
+                    </label>
+                    <select
+                      id="contact-type"
+                      value={formData.inquiryType}
+                      onChange={(e) => setFormData({ ...formData, inquiryType: e.target.value })}
+                      className="w-full rounded-xl bg-black/70 border border-white/15 px-4 py-3 text-sm text-[#F5F5F7] focus:border-[#8B151A] focus:outline-none transition-colors cursor-pointer"
+                    >
+                      <option value="Feature Film Production" className="bg-[#141416]">
+                        Feature Film Production
+                      </option>
+                      <option value="Generative AI Cinema / NRIM" className="bg-[#141416]">
+                        Generative AI Cinema / NRIM
+                      </option>
+                      <option value="Worldwide Theatrical Distribution" className="bg-[#141416]">
+                        Worldwide Theatrical Distribution
+                      </option>
+                      <option value="Co-Production & Financing" className="bg-[#141416]">
+                        Co-Production & Financing
+                      </option>
+                      <option value="American Film Academy Slate" className="bg-[#141416]">
+                        American Film Academy Slate
+                      </option>
+                      <option value="General Studio Inquiry" className="bg-[#141416]">
+                        General Studio Inquiry
+                      </option>
+                    </select>
+                  </div>
+                </div>
 
-            <a
-              href="https://fusionedgemedia.com/"
-              target="_blank"
-              rel="noreferrer"
-              className="rounded-full border border-white/30 bg-white/10 hover:bg-white/20 text-white backdrop-blur-md px-8 py-4 text-xs sm:text-sm font-bold uppercase tracking-wider transition-all flex items-center gap-2"
-            >
-              Visit fusionedgemedia.com <ExternalLink size={15} />
-            </a>
+                <div>
+                  <label
+                    htmlFor="contact-message"
+                    className="block text-xs font-bold uppercase tracking-wider text-[#F5F5F7]/90 mb-1.5"
+                  >
+                    Project Brief / Message <span className="text-[#8B151A]">*</span>
+                  </label>
+                  <textarea
+                    id="contact-message"
+                    required
+                    rows={4}
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    placeholder="Provide details regarding your slate, timeline, distribution territory, or collaboration scope..."
+                    className="w-full rounded-xl bg-black/70 border border-white/15 px-4 py-3 text-sm text-[#F5F5F7] placeholder:text-[#8E8E93]/60 focus:border-[#8B151A] focus:outline-none transition-colors resize-none"
+                  />
+                </div>
+
+                <div className="mt-2">
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="btn-pill-crimson px-10 py-4 text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-xl hover:scale-105 active:scale-95 disabled:opacity-50 w-full sm:w-auto"
+                  >
+                    <Send size={14} />
+                    {isSubmitting ? "Transmitting..." : "Submit Project Brief"}
+                  </button>
+                </div>
+              </form>
+            )}
           </div>
         </div>
       </div>
@@ -1094,42 +1449,246 @@ function ContactSection() {
   );
 }
 
-function UniversalFooter() {
+function AdminInquiriesModal({
+  isOpen,
+  onClose,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+}) {
+  const [inquiries, setInquiries] = useState<StudioInquiry[]>([]);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  useEffect(() => {
+    if (isOpen) {
+      setInquiries(loadStoredInquiries());
+    }
+  }, [isOpen]);
+
+  if (!isOpen) return null;
+
+  const filtered = inquiries.filter((inq) => {
+    const query = searchTerm.toLowerCase();
+    return (
+      inq.name.toLowerCase().includes(query) ||
+      inq.email.toLowerCase().includes(query) ||
+      (inq.company && inq.company.toLowerCase().includes(query)) ||
+      inq.inquiryType.toLowerCase().includes(query) ||
+      inq.message.toLowerCase().includes(query)
+    );
+  });
+
+  const handleDelete = (id: string) => {
+    if (typeof window === "undefined") return;
+    const updated = inquiries.filter((inq) => inq.id !== id);
+    setInquiries(updated);
+    localStorage.setItem(INQUIRIES_STORAGE_KEY, JSON.stringify(updated));
+  };
+
+  const handleClearAll = () => {
+    if (confirm("Are you sure you want to clear all studio inquiry records?")) {
+      setInquiries([]);
+      if (typeof window !== "undefined") {
+        localStorage.removeItem(INQUIRIES_STORAGE_KEY);
+      }
+    }
+  };
+
   return (
-    <footer className="border-t border-white/10 bg-background">
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label="Studio Submissions Vault"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4 animate-reveal"
+      onClick={onClose}
+    >
+      <div
+        className="relative flex flex-col max-h-[90vh] w-full max-w-4xl overflow-hidden rounded-2xl bg-[#141416] shadow-2xl border border-white/10"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Modal Header */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-white/10 px-6 py-5 bg-[#0A0A0A] gap-4">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-full bg-[#8B151A]/20 text-[#8B151A] flex items-center justify-center shrink-0">
+              <ShieldCheck size={20} />
+            </div>
+            <div>
+              <h3 className="font-display text-xl uppercase tracking-wider text-[#F5F5F7] sm:text-2xl">
+                Studio Inquiries Vault
+              </h3>
+              <p className="text-xs text-[#8E8E93]">
+                {inquiries.length} total logged production briefs & distribution inquiries
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2">
+            {inquiries.length > 0 && (
+              <>
+                <button
+                  type="button"
+                  onClick={() => exportInquiriesCSV(inquiries)}
+                  className="btn-pill-crimson px-4 py-2 text-[11px] font-bold uppercase tracking-wider flex items-center gap-1.5 cursor-pointer shadow-md"
+                >
+                  <Download size={13} /> Export CSV
+                </button>
+                <button
+                  type="button"
+                  onClick={() => exportInquiriesJSON(inquiries)}
+                  className="btn-pill-outline px-4 py-2 text-[11px] font-bold uppercase tracking-wider flex items-center gap-1.5 cursor-pointer"
+                >
+                  <Download size={13} /> JSON
+                </button>
+                <button
+                  type="button"
+                  onClick={handleClearAll}
+                  className="btn-pill-outline px-3 py-2 text-[11px] font-bold uppercase tracking-wider text-red-400 hover:text-red-300 cursor-pointer"
+                  title="Clear all inquiries"
+                >
+                  <Trash2 size={13} />
+                </button>
+              </>
+            )}
+            <button
+              type="button"
+              aria-label="Close admin vault"
+              onClick={onClose}
+              className="rounded-full bg-white/10 p-2 text-[#8E8E93] transition hover:text-[#F5F5F7] hover:bg-white/20 cursor-pointer ml-2"
+            >
+              <X size={18} />
+            </button>
+          </div>
+        </div>
+
+        {/* Filter Search */}
+        {inquiries.length > 0 && (
+          <div className="px-6 py-3 border-b border-white/5 bg-[#0e0e10] flex items-center gap-2">
+            <Search size={14} className="text-[#8E8E93]" />
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Filter by name, email, company, or keyword..."
+              className="w-full bg-transparent text-xs text-[#F5F5F7] placeholder:text-[#8E8E93]/60 focus:outline-none"
+            />
+          </div>
+        )}
+
+        {/* Inquiries List */}
+        <div className="flex-1 overflow-y-auto p-6 space-y-4">
+          {inquiries.length === 0 ? (
+            <div className="text-center py-16">
+              <ShieldCheck size={40} className="text-[#8E8E93]/40 mx-auto mb-3" />
+              <p className="font-display text-2xl uppercase tracking-wider text-[#F5F5F7]">
+                No Studio Inquiries Recorded Yet
+              </p>
+              <p className="text-xs text-[#8E8E93] mt-1 max-w-sm mx-auto">
+                Submissions from the "Let's Make The Next One" contact form will be stored here in
+                real-time and exportable as CSV/JSON.
+              </p>
+            </div>
+          ) : filtered.length === 0 ? (
+            <div className="text-center py-12 text-sm text-[#8E8E93]">
+              No inquiries match "{searchTerm}".
+            </div>
+          ) : (
+            filtered.map((inq) => (
+              <div
+                key={inq.id}
+                className="rounded-xl bg-black/60 border border-white/10 p-5 flex flex-col gap-3 relative group"
+              >
+                <div className="flex flex-wrap items-start justify-between gap-2">
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="font-bold text-[#F5F5F7] text-base">{inq.name}</span>
+                      {inq.company && (
+                        <span className="text-xs text-[#8E8E93] font-medium">({inq.company})</span>
+                      )}
+                    </div>
+                    <a
+                      href={`mailto:${inq.email}`}
+                      className="text-xs text-[#8B151A] hover:underline font-medium"
+                    >
+                      {inq.email}
+                    </a>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <span className="rounded-full bg-[#8B151A]/20 px-3 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#F5F5F7]">
+                      {inq.inquiryType}
+                    </span>
+                    <span className="text-[11px] text-[#8E8E93]">
+                      {new Date(inq.createdAt).toLocaleString(undefined, {
+                        month: "short",
+                        day: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => handleDelete(inq.id)}
+                      className="text-[#8E8E93] hover:text-red-400 p-1 transition cursor-pointer"
+                      title="Delete record"
+                    >
+                      <Trash2 size={13} />
+                    </button>
+                  </div>
+                </div>
+
+                <div className="rounded-lg bg-[#141416] p-3 text-xs text-[#F5F5F7]/90 leading-relaxed whitespace-pre-wrap">
+                  {inq.message}
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function UniversalFooter({ onOpenSecretAdmin }: { onOpenSecretAdmin: () => void }) {
+  return (
+    <footer className="border-t border-white/10 bg-[#0A0A0A]">
       <div className="page-gutter grid gap-10 py-16 md:grid-cols-[1.5fr_1fr_1fr_1fr]">
         <div>
-          {/* Big clean logo - No box */}
+          {/* Fusion Edge Media Logo */}
           <a href="#top" aria-label="Fusion Edge Media">
             <img
               src="/images/logos/fusion-edge-logo.png"
               alt="Fusion Edge Media"
-              className="h-12 md:h-14 w-auto object-contain"
+              className="h-11 md:h-13 w-auto object-contain"
               width="480"
               height="140"
             />
           </a>
-          <p className="mt-4 max-w-sm text-xs leading-6 text-muted-foreground">
-            Connecting continents in filmmaking. Bridging Hollywood, Indian cinema, and global
-            theatrical markets with cutting-edge visual technology and premier storytelling.
+          <p className="mt-4 font-serif italic text-xs text-[#8B151A]">
+            Connecting Continents in Film Making
+          </p>
+          <p className="mt-2 max-w-sm text-xs leading-6 text-[#8E8E93]">
+            Bridging Hollywood, Indian cinema, and global theatrical markets with cutting-edge
+            visual technology and premier storytelling.
           </p>
         </div>
 
         <div>
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-foreground">Films & Slate</p>
-          <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#F5F5F7]">
+            Films & Slate
+          </p>
+          <ul className="mt-4 space-y-2 text-sm text-[#8E8E93]">
             <li>
-              <a href="#coming-soon" className="hover:text-[#1d63ff]">
-                The Book of Genesis (AI)
+              <a href="#coming-soon" className="hover:text-[#8B151A] transition-colors">
+                The Book of Exodus (2027)
               </a>
             </li>
             <li>
-              <a href="#in-release" className="hover:text-[#1d63ff]">
+              <a href="#in-release" className="hover:text-[#8B151A] transition-colors">
                 In Release
               </a>
             </li>
             <li>
-              <a href="#afa-slate" className="hover:text-[#1d63ff]">
+              <a href="#afa-slate" className="hover:text-[#8B151A] transition-colors">
                 American Film Academy Slate
               </a>
             </li>
@@ -1137,20 +1696,35 @@ function UniversalFooter() {
         </div>
 
         <div>
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-foreground">Divisions</p>
-          <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#F5F5F7]">Divisions</p>
+          <ul className="mt-4 space-y-2 text-sm text-[#8E8E93]">
             <li>
-              <a href="https://globalglitz.com/" target="_blank" rel="noreferrer" className="hover:text-[#1d63ff]">
+              <a
+                href="https://globalglitz.com/"
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-[#8B151A] transition-colors"
+              >
                 Global Glitz (Streaming)
               </a>
             </li>
             <li>
-              <a href="https://afa.education/" target="_blank" rel="noreferrer" className="hover:text-[#1d63ff]">
+              <a
+                href="https://afa.education/"
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-[#8B151A] transition-colors"
+              >
                 American Film Academy
               </a>
             </li>
             <li>
-              <a href="http://prossigacorp.com/" target="_blank" rel="noreferrer" className="hover:text-[#1d63ff]">
+              <a
+                href="http://prossigacorp.com/"
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-[#8B151A] transition-colors"
+              >
                 Prossiga Media
               </a>
             </li>
@@ -1158,24 +1732,25 @@ function UniversalFooter() {
         </div>
 
         <div>
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-foreground">Studio Office</p>
-          <p className="mt-4 text-xs leading-6 text-muted-foreground">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#F5F5F7]">
+            Studio Office
+          </p>
+          <p className="mt-4 text-xs leading-6 text-[#8E8E93]">
             P.O. Box 65154
             <br />
             Virginia Beach, VA 23464, US
           </p>
-          <a
-            href="tel:+18189628062"
-            className="mt-3 inline-block text-xs font-bold text-[#1d63ff] hover:underline"
-          >
-            +1 818 962 8062
-          </a>
         </div>
       </div>
 
-      <div className="page-gutter flex flex-col gap-3 border-t border-border/40 py-6 text-[11px] uppercase tracking-[0.14em] text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-        <span>© 2026 Fusion Edge Media. All rights reserved.</span>
-        <span>A Prossiga Corp Company</span>
+      <div className="page-gutter flex flex-col gap-3 border-t border-white/10 py-6 text-[11px] uppercase tracking-[0.14em] text-[#8E8E93] sm:flex-row sm:items-center sm:justify-between">
+        <span
+          onDoubleClick={onOpenSecretAdmin}
+          className="cursor-default select-none"
+        >
+          © 2026 Fusion Edge Media. All rights reserved.
+        </span>
+        <span className="font-serif italic lowercase tracking-normal">a Prossiga Corp company</span>
       </div>
     </footer>
   );
@@ -1184,13 +1759,40 @@ function UniversalFooter() {
 export function LandingPage() {
   const [activeVideo, setActiveVideo] = useState<VideoModalState | null>(null);
   const [activeFilm, setActiveFilm] = useState<FilmWork | null>(null);
+  const [isAdminVaultOpen, setIsAdminVaultOpen] = useState(false);
 
-  const handlePlayVideo = (
-    id: string,
-    title: string,
-    category?: string,
-    startSeconds?: number
-  ) => {
+  // Secret admin access via #admin URL hash or Ctrl+Shift+A / Cmd+Shift+A hotkey
+  useEffect(() => {
+    const handleHash = () => {
+      if (typeof window !== "undefined" && window.location.hash === "#admin") {
+        setIsAdminVaultOpen(true);
+      }
+    };
+    handleHash();
+    window.addEventListener("hashchange", handleHash);
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.shiftKey && e.key.toLowerCase() === "a") {
+        e.preventDefault();
+        setIsAdminVaultOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("hashchange", handleHash);
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
+  const handleCloseAdminVault = () => {
+    setIsAdminVaultOpen(false);
+    if (typeof window !== "undefined" && window.location.hash === "#admin") {
+      history.replaceState(null, "", window.location.pathname + window.location.search);
+    }
+  };
+
+  const handlePlayVideo = (id: string, title: string, category?: string, startSeconds?: number) => {
     setActiveVideo({ id, title, category, startSeconds });
   };
 
@@ -1204,7 +1806,6 @@ export function LandingPage() {
   };
 
   const handlePlayVfxReel = () => {
-    // Official Fusion Edge VFX Showreel
     setActiveVideo({
       id: "-Igs9ALteeI",
       title: "Fusion Edge Media - Enthiran Hollywood VFX Collaboration",
@@ -1214,41 +1815,32 @@ export function LandingPage() {
   };
 
   return (
-    <div className="relative min-h-screen bg-background text-foreground">
-      {/* Universal Pictures Style Header with Large Unboxed Logo */}
+    <div className="relative min-h-screen bg-[#0A0A0A] text-[#F5F5F7]">
+      {/* Studio Header */}
       <UniversalHeader onPlayVfxReel={handlePlayVfxReel} />
 
       <main>
-        {/* Full Bleed Universal Studio Hero Banner with Dock Slider */}
-        <UniversalHeroSlider
-          onPlayVideo={handlePlayVideo}
-          onInspectFilm={handleInspectFilm}
-        />
+        {/* Full Bleed Studio Hero Banner with Dock Slider (Matching Image 5) */}
+        <UniversalHeroSlider onPlayVideo={handlePlayVideo} onInspectFilm={handleInspectFilm} />
 
-        {/* Section 1: Coming Soon - Spotlight on NRIM Visual Bible: The Book of Genesis */}
-        <ComingSoonSection
-          onPlayVideo={handlePlayVideo}
-          onInspectFilm={handleInspectFilm}
-        />
+        {/* Section 1: Coming Soon - Spotlight on NRIM Visual Bible: The Book of Exodus (Matching Image 2 Reference) */}
+        <ComingSoonSection onPlayVideo={handlePlayVideo} onInspectFilm={handleInspectFilm} />
 
-        {/* Section 2: In Release - Universal Horizontal Poster Shelf */}
-        <InReleaseShelf
-          onInspectFilm={handleInspectFilm}
-          onPlayVideo={handlePlayVideo}
-        />
+        {/* Section 2: In Release - Borderless Rounded Theatrical Poster Shelf */}
+        <InReleaseShelf onInspectFilm={handleInspectFilm} onPlayVideo={handlePlayVideo} />
 
-        {/* Section 3: American Film Academy Slate - 8 Real Indie Features */}
+        {/* Section 3: American Film Academy Slate */}
         <AmericanFilmAcademySlate onInspectFilm={handleInspectFilm} />
 
         {/* Section 4: Studio Divisions */}
         <StudioDivisionsSection />
 
-        {/* Section 5: Studio Contact & Headquarter */}
+        {/* Section 5: Studio Contact Form */}
         <ContactSection />
       </main>
 
-      {/* Universal Studio Footer */}
-      <UniversalFooter />
+      {/* Studio Footer */}
+      <UniversalFooter onOpenSecretAdmin={() => setIsAdminVaultOpen(true)} />
 
       {/* Video Modal Player */}
       <CinemaVideoModal video={activeVideo} onClose={() => setActiveVideo(null)} />
@@ -1258,6 +1850,12 @@ export function LandingPage() {
         film={activeFilm}
         onClose={() => setActiveFilm(null)}
         onPlayVideo={handlePlayVideo}
+      />
+
+      {/* Studio Executive Inquiries Vault (Admin) */}
+      <AdminInquiriesModal
+        isOpen={isAdminVaultOpen}
+        onClose={handleCloseAdminVault}
       />
     </div>
   );

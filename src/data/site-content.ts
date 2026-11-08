@@ -46,7 +46,7 @@ export interface HeroSlide {
     videoId?: string;
     startSeconds?: number;
   };
-  secondaryCta: {
+  secondaryCta?: {
     label: string;
     action: "link" | "filmModal" | "videoModal";
     href?: string;
@@ -60,6 +60,23 @@ export interface HeroSlide {
 }
 
 export const featuredHeroSlides: HeroSlide[] = [
+  {
+    id: "exodus",
+    eyebrow: "2027 RELEASE",
+    title: "THE BOOK OF EXODUS",
+    tagline: "NRIM Visual Bible Project - 2027 Feature Film",
+    description:
+      "Nations Reach International Missions (NRIM) and Fusion Edge Media present The Book of Exodus. An epic cinematic visual Bible feature film produced with an advanced generative AI cinema pipeline.",
+    statusLabel: "2027 Release",
+    primaryCta: {
+      label: "Explore",
+      action: "link",
+      href: "https://visualbible.nrim.org/",
+    },
+    backdropImage: "/images/posters/exodus-parting-sea.jpg",
+    videoId: "mqyequybTKQ",
+    startSeconds: 397,
+  },
   {
     id: "genesis",
     eyebrow: "IN PRODUCTION • 90-MINUTE AI FEATURE FILM",
@@ -202,6 +219,24 @@ export const officialVideos: VideoItem[] = [
 ];
 
 export const allFilmWorks: FilmWork[] = [
+  {
+    id: "exodus",
+    title: "The Book of Exodus",
+    year: "2027",
+    category: "genesis",
+    categoryLabel: "NRIM Visual Bible Project",
+    tagline: "The Journey of Faith, Freedom, and Revelation - 2027 Release",
+    credits: "Nations Reach International Missions · Fusion Edge Media",
+    director: "Jack A Rajasekar & NRIM",
+    producers: "Fusion Edge Media AI Cinematic Studio",
+    image: "/images/posters/exodus-parting-sea.jpg",
+    alt: "The Book of Exodus Movie Poster",
+    description:
+      "Nations Reach International Missions (NRIM) and Fusion Edge Media present The Book of Exodus. Utilizing a world-class generative AI cinema pipeline, the monumental chronicle of Moses, the parting of the Red Sea, and the wilderness revelation are captured with unprecedented theatrical scale.",
+    videoId: "mqyequybTKQ",
+    startSeconds: 397,
+    link: "https://visualbible.nrim.org/",
+  },
   {
     id: "genesis",
     title: "The Book of Genesis",
@@ -525,7 +560,7 @@ export const studioDivisions: StudioDivision[] = [
     tagline: "Training Tomorrow's Filmmakers, Today",
     description:
       "Our dedicated film academy institution mentoring and empowering the next generation of directors, cinematographers, and technical artists through immersive, hands-on production.",
-    logo: "/images/logos/afa-logo.png",
+    logo: "/images/logos/afa-logo-v2.png",
     action: { label: "Visit AFA", href: "https://afa.education/", external: true },
   },
   {
@@ -538,6 +573,69 @@ export const studioDivisions: StudioDivision[] = [
     action: { label: "Visit Prossiga Media", href: "http://prossigacorp.com/", external: true },
   },
 ];
+
+export interface ExodusPoster {
+  id: string;
+  title: string;
+  subtitle: string;
+  image: string;
+  tag: string;
+  alt: string;
+}
+
+export const exodusPosters: ExodusPoster[] = [
+  {
+    id: "exodus-parting-sea",
+    title: "The Book of Exodus",
+    subtitle: "Deliverance Through the Parting Waters",
+    image: "/images/posters/exodus-parting-sea.jpg",
+    tag: "Theatrical Poster I",
+    alt: "The Book of Exodus - Moses Standing at the Parting Sea",
+  },
+  {
+    id: "exodus-tablets",
+    title: "The Ten Commandments",
+    subtitle: "The Divine Law at Mount Sinai",
+    image: "/images/posters/exodus-tablets.jpg",
+    tag: "Theatrical Poster II",
+    alt: "The Book of Exodus - Moses Holding the Stone Tablets",
+  },
+  {
+    id: "exodus-staff",
+    title: "The Call of the Prophet",
+    subtitle: "Unwavering Faith in the Desert",
+    image: "/images/posters/exodus-staff.jpg",
+    tag: "Theatrical Poster III",
+    alt: "The Book of Exodus - Moses with Staff Against the Storm",
+  },
+  {
+    id: "exodus-parting-sea-alt",
+    title: "The Red Sea Crossing",
+    subtitle: "Miraculous Path Through the Deep",
+    image: "/images/posters/exodus-parting-sea.jpg",
+    tag: "Official Teaser Art",
+    alt: "The Book of Exodus - Parting of the Red Sea",
+  },
+];
+
+export const exodusDetails = {
+  title: "The Book of Exodus",
+  headline: "An NRIM Production · 2027 Theatrical Feature Film",
+  client: "Nations Reach International Missions (NRIM)",
+  production: "Fusion Edge Media",
+  videoId: "mqyequybTKQ",
+  startSeconds: 397,
+  watchChaptersUrl: "https://visualbible.nrim.org/",
+  globalGlitzUrl: "https://globalglitz.com/",
+  posterImage: "/images/posters/exodus-parting-sea.jpg",
+  description:
+    "Nations Reach International Missions (NRIM) in strategic co-production with Fusion Edge Media announces The Book of Exodus. Utilizing a world-class generative AI cinema pipeline, the monumental journey of Moses, the deliverance from Pharaoh, the parting of the Red Sea, and the giving of the covenant at Mount Sinai are brought to life for global audiences.",
+  stats: [
+    { value: "2027", label: "Theatrical Release" },
+    { value: "90+ Min", label: "Feature Film" },
+    { value: "Next-Gen AI", label: "Cinematic Pipeline" },
+  ],
+};
 
 export const genesisDetails = {
   title: "NRIM Visual Bible Project",
@@ -560,7 +658,10 @@ export const genesisDetails = {
 };
 
 export const inReleaseFilms = allFilmWorks.filter(
-  (film) => film.category === "blockbuster" || film.category === "series" || film.category === "international"
+  (film) =>
+    film.category === "blockbuster" ||
+    film.category === "series" ||
+    film.category === "international",
 );
 
 export const afaFilms = allFilmWorks.filter((film) => film.category === "afa");

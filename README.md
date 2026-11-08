@@ -1,6 +1,6 @@
 # Fusion Edge Launch
 
-need to build a landing page for fusion edge media (use media assets available and attached first ) 
+need to build a landing page for fusion edge media (use media assets available and attached first )
 
 http://fusionedgemedia.com/ for further rerfence
 
