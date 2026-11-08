@@ -36,6 +36,7 @@ export interface HeroSlide {
   eyebrow: string;
   title: string;
   subtitle?: string;
+  titleImage?: string;
   tagline: string;
   description: string;
   statusLabel: string;
@@ -64,12 +65,13 @@ export const featuredHeroSlides: HeroSlide[] = [
   {
     id: "exodus",
     eyebrow: "2027 RELEASE",
-    title: "LET MY PEOPLE GO",
-    subtitle: "The Book of Exodus",
+    title: "YAHWEH",
+    subtitle: "The God who reveals His power",
+    titleImage: "/images/titles/yahweh-title.png",
     tagline: "NRIM Visual Bible Project · 2027 Theatrical Feature Film",
     description:
       "Nations Reach International Missions (NRIM) and Fusion Edge Media present The Book of Exodus. An epic cinematic visual Bible feature film produced with an advanced generative AI cinema pipeline.",
-    statusLabel: "The Book of Exodus",
+    statusLabel: "The God who reveals His power",
     primaryCta: {
       label: "Explore",
       action: "link",
@@ -589,11 +591,11 @@ export interface ExodusPoster {
 export const exodusPosters: ExodusPoster[] = [
   {
     id: "exodus-parting-sea",
-    title: "The Book of Exodus",
-    subtitle: "Deliverance Through the Parting Waters",
+    title: "YAHWEH",
+    subtitle: "The God who reveals His power",
     image: "/images/posters/exodus-parting-sea.jpg",
     tag: "Theatrical Poster I",
-    alt: "The Book of Exodus - Moses Standing at the Parting Sea",
+    alt: "YAHWEH: The Book of Exodus - Moses Standing at the Parting Sea",
   },
   {
     id: "exodus-tablets",
@@ -622,8 +624,9 @@ export const exodusPosters: ExodusPoster[] = [
 ];
 
 export const exodusDetails = {
-  title: "Let My People Go",
-  subtitle: "The Book of Exodus",
+  title: "YAHWEH",
+  subtitle: "The God who reveals His power",
+  titleImage: "/images/titles/yahweh-title.png",
   headline: "An NRIM Production · 2027 Theatrical Feature Film",
   client: "Nations Reach International Missions (NRIM)",
   production: "Fusion Edge Media",

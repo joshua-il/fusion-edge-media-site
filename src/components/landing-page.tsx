@@ -541,14 +541,30 @@ function UniversalHeroSlider({
             </div>
           )}
 
-          <h1 className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[5.5rem] uppercase tracking-tight text-[#F5F5F7] leading-[0.92] drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)] sm:whitespace-nowrap">
-            {activeSlide.title}
-          </h1>
+          {activeSlide.titleImage ? (
+            <div className="my-2 sm:my-3">
+              <h1 className="sr-only">
+                {activeSlide.title}
+                {activeSlide.subtitle ? ` — ${activeSlide.subtitle}` : ""}
+              </h1>
+              <img
+                src={activeSlide.titleImage}
+                alt={`${activeSlide.title}${activeSlide.subtitle ? ` - ${activeSlide.subtitle}` : ""}`}
+                className="h-16 sm:h-24 md:h-32 lg:h-36 xl:h-44 w-auto max-w-full object-contain object-left drop-shadow-[0_6px_28px_rgba(0,0,0,0.95)]"
+              />
+            </div>
+          ) : (
+            <>
+              <h1 className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[5.5rem] uppercase tracking-tight text-[#F5F5F7] leading-[0.92] drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)] sm:whitespace-nowrap">
+                {activeSlide.title}
+              </h1>
 
-          {activeSlide.subtitle && (
-            <p className="mt-2 sm:mt-2.5 font-display text-lg sm:text-2xl md:text-3xl lg:text-4xl uppercase tracking-[0.16em] text-[#8E8E93] drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] sm:whitespace-nowrap">
-              {activeSlide.subtitle}
-            </p>
+              {activeSlide.subtitle && (
+                <p className="mt-2 sm:mt-2.5 font-display text-lg sm:text-2xl md:text-3xl lg:text-4xl uppercase tracking-[0.16em] text-[#8E8E93] drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] sm:whitespace-nowrap">
+                  {activeSlide.subtitle}
+                </p>
+              )}
+            </>
           )}
 
           <p className="mt-3 max-w-xl font-serif italic text-sm sm:text-lg md:text-2xl text-[#F5F5F7]/95 leading-relaxed drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
@@ -931,13 +947,28 @@ function ComingSoonSection({
               </span>
             </div>
 
-            <h2 className="font-display text-3xl sm:text-5xl lg:text-5xl xl:text-6xl font-black uppercase text-[#F5F5F7] leading-[0.92] tracking-tight sm:whitespace-nowrap">
-              LET MY PEOPLE GO
-            </h2>
+            {exodusDetails.titleImage ? (
+              <div className="my-2">
+                <h2 className="sr-only">
+                  {exodusDetails.title} — {exodusDetails.subtitle}
+                </h2>
+                <img
+                  src={exodusDetails.titleImage}
+                  alt={`${exodusDetails.title} - ${exodusDetails.subtitle}`}
+                  className="h-14 sm:h-20 lg:h-24 w-auto max-w-full object-contain object-left drop-shadow-[0_4px_20px_rgba(0,0,0,0.9)]"
+                />
+              </div>
+            ) : (
+              <>
+                <h2 className="font-display text-3xl sm:text-5xl lg:text-5xl xl:text-6xl font-black uppercase text-[#F5F5F7] leading-[0.92] tracking-tight sm:whitespace-nowrap">
+                  {exodusDetails.title}
+                </h2>
 
-            <p className="mt-2 font-display text-lg sm:text-2xl lg:text-3xl uppercase tracking-[0.15em] text-[#8E8E93] font-bold sm:whitespace-nowrap">
-              THE BOOK OF EXODUS
-            </p>
+                <p className="mt-2 font-display text-lg sm:text-2xl lg:text-3xl uppercase tracking-[0.15em] text-[#8E8E93] font-bold sm:whitespace-nowrap">
+                  {exodusDetails.subtitle}
+                </p>
+              </>
+            )}
 
             <p className="mt-3 font-serif italic text-sm sm:text-lg text-[#F5F5F7]/90">
               {exodusDetails.headline}
