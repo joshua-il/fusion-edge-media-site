@@ -522,7 +522,7 @@ function UniversalHeroSlider({
       </div>
 
       {/* Center Left Showcase Content with Smooth Cinematic Entrance */}
-      <div className="page-gutter relative z-20 my-auto py-8 sm:py-12 md:py-16 max-w-3xl">
+      <div className="page-gutter relative z-20 my-auto py-8 sm:py-12 md:py-16 max-w-4xl lg:max-w-5xl xl:max-w-6xl">
         <div key={activeSlide.id} className="animate-hero-slide">
           {/* Hollywood Poster Highlight: Large, Bold, Prestigious letter-spaced Billing Highlight */}
           {activeSlide.id === "exodus" ? (
@@ -542,12 +542,12 @@ function UniversalHeroSlider({
             </div>
           )}
 
-          <h1 className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl uppercase tracking-tight text-[#F5F5F7] leading-[0.92] drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]">
+          <h1 className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[5.5rem] uppercase tracking-tight text-[#F5F5F7] leading-[0.92] drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)] sm:whitespace-nowrap">
             {activeSlide.title}
           </h1>
 
           {activeSlide.subtitle && (
-            <p className="mt-1.5 sm:mt-2 font-display text-base sm:text-xl md:text-2xl uppercase tracking-[0.14em] text-[#8E8E93] drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+            <p className="mt-2 sm:mt-2.5 font-display text-lg sm:text-2xl md:text-3xl lg:text-4xl uppercase tracking-[0.16em] text-[#8E8E93] drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] sm:whitespace-nowrap">
               {activeSlide.subtitle}
             </p>
           )}
@@ -922,7 +922,7 @@ function ComingSoonSection({
     >
       <div className="page-gutter relative z-10">
         {/* Layout Inspired by Apple TV+ & Modern Portfolio (Matching Image 2 Reference) */}
-        <div className="grid gap-12 lg:grid-cols-[420px_1fr] xl:grid-cols-[460px_1fr] items-center">
+        <div className="grid gap-10 lg:grid-cols-[480px_1fr] xl:grid-cols-[540px_1fr] items-center">
           {/* Left Column: Bold Typography & Simple Bold Text Stats (NO BOXES, NO BORDERS) */}
           <div className="flex flex-col items-start">
             <div className="flex items-center gap-3 mb-3">
@@ -932,11 +932,11 @@ function ComingSoonSection({
               </span>
             </div>
 
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black uppercase text-[#F5F5F7] leading-[0.92] tracking-tight">
+            <h2 className="font-display text-3xl sm:text-5xl lg:text-5xl xl:text-6xl font-black uppercase text-[#F5F5F7] leading-[0.92] tracking-tight sm:whitespace-nowrap">
               LET MY PEOPLE GO
             </h2>
 
-            <p className="mt-1.5 sm:mt-2 font-display text-base sm:text-xl lg:text-2xl uppercase tracking-[0.14em] text-[#8E8E93] font-bold">
+            <p className="mt-2 font-display text-lg sm:text-2xl lg:text-3xl uppercase tracking-[0.15em] text-[#8E8E93] font-bold sm:whitespace-nowrap">
               THE BOOK OF EXODUS
             </p>
 
