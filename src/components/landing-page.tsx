@@ -255,36 +255,36 @@ function UniversalHeader({ onPlayVfxReel }: { onPlayVfxReel: () => void }) {
   return (
     <header className="fixed inset-x-0 top-0 z-40 bg-[#0A0A0A]/95 transition-all">
       <div className="page-gutter flex h-20 items-center justify-between lg:h-24">
-        {/* Fusion Edge Media Studio Logo & Tagline */}
+        {/* Fusion Edge Media Studio Logo */}
         <a
           href="#top"
           aria-label="Fusion Edge Media home"
-          className="relative z-50 flex items-center gap-4 transition-transform hover:scale-[1.02] focus-visible:outline-none"
+          className="relative z-50 flex items-center shrink-0 transition-transform hover:scale-[1.02] focus-visible:outline-none"
         >
           <img
             src="/images/logos/fusion-edge-logo.png"
             alt="Fusion Edge Media"
-            className="h-11 sm:h-13 md:h-14 w-auto object-contain"
+            className="h-10 sm:h-12 w-auto object-contain"
             width="480"
             height="140"
           />
-          <span className="hidden xl:inline-block font-serif italic text-xs text-[#8E8E93] border-l border-white/15 pl-3">
-            Connecting Continents in Film Making
-          </span>
         </a>
 
-        {/* Hollywood Studio Navigation */}
-        <nav className="hidden items-center gap-5 xl:gap-8 lg:flex" aria-label="Main navigation">
+        {/* Hollywood Studio Navigation - Generous Balanced Spacing */}
+        <nav
+          className="hidden lg:flex items-center gap-7 xl:gap-10 mx-auto"
+          aria-label="Main navigation"
+        >
           {navItems.map((item) => (
             <a
               key={item.label}
               href={item.href}
               target={item.external ? "_blank" : undefined}
               rel={item.external ? "noreferrer" : undefined}
-              className="nav-link inline-flex items-center gap-1.5 whitespace-nowrap"
+              className="nav-link inline-flex items-center gap-1.5 whitespace-nowrap text-xs font-bold uppercase tracking-[0.18em] py-2 text-[#8E8E93] hover:text-[#F5F5F7] transition-colors"
             >
               <span>{item.label}</span>
-              {item.external && <ExternalLink size={11} className="text-[#8E8E93] opacity-80" />}
+              {item.external && <ExternalLink size={12} className="text-[#8E8E93] opacity-75" />}
             </a>
           ))}
         </nav>
@@ -526,12 +526,11 @@ function UniversalHeroSlider({
         <div key={activeSlide.id} className="animate-hero-slide">
           {/* Hollywood Poster Highlight: Large, Bold, Prestigious letter-spaced Billing Highlight */}
           {activeSlide.id === "exodus" ? (
-            <div className="mb-2.5 sm:mb-4 flex items-center gap-2 sm:gap-3.5">
-              <span className="h-[2px] w-5 sm:w-12 bg-[#8B151A]" />
+            <div className="mb-2.5 sm:mb-4 flex items-center gap-2.5 sm:gap-3.5">
+              <span className="h-[2px] w-6 sm:w-12 bg-[#8B151A]" />
               <span className="font-display text-base sm:text-2xl md:text-3xl lg:text-4xl tracking-[0.2em] sm:tracking-[0.26em] uppercase text-[#F5F5F7] font-bold drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)] whitespace-nowrap">
                 2027 RELEASE
               </span>
-              <span className="h-[2px] w-5 sm:w-12 bg-[#8B151A]" />
             </div>
           ) : (
             <div className="mb-2 sm:mb-3 flex items-center gap-2 sm:gap-3">
